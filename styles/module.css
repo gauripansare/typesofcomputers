@@ -1,0 +1,788 @@
+﻿.no-focus *{
+    outline:none;
+}
+.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.enabled {
+    cursor: pointer;
+    opacity: 1;
+}
+/*intro-content CSS Start */
+.intro-content {
+    float: left;
+    padding-bottom: 10px;
+    margin: 0 10%;
+}
+
+
+
+#climate-deal {
+    width: 50%;
+    float: left;
+    margin: 22px 2%;
+}
+
+.intro-content .intro-p p {
+    margin-top: 0px;
+}
+
+.question_txt p {
+    display: -webkit-inline-box;
+    padding-left: 10px;
+}
+
+.question-band .qheight {
+    margin-top: 20px;
+}
+
+/*intro-content CSS End */
+
+
+
+/*Question Css*/
+.questionband {
+    float: left;
+}
+
+.questionband input[type='text'], .questionband input[type='number'] {
+        text-align: center;
+        width: 100px;
+}
+.previous, .next {
+    padding-bottom: 15px;
+}
+
+.question_icon {
+    float: left;
+    width: 60px;
+    margin-top: 10px;
+}
+
+.question_icon span {
+        border-radius: 30px;
+        background: #007AA2;
+        color: #FFF;
+        font-size: 20px;
+        padding: 12px 22px 15px 22px;
+}
+
+.question_txt {
+    margin-left: 60px;
+    cursor: pointer;
+}
+
+.optionselected {
+    background-color: #f1f1f1;
+    font-weight: bold;
+}
+
+.optionselected span {
+        background-color: #003058;
+        color: #F9FF00;
+ }
+/*Question Css*/
+
+.wrapperimage {
+    width: 796px;
+    height: auto;
+    position: relative;
+}
+
+.activityimg {
+    width: 796px;
+}
+
+.activityContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 35px 0 0 0;
+    background: #F0F0F0;
+    float: left;
+    width: 100%;
+}
+
+.input-url {
+    width: 335px;
+    height: 19px;
+    position: absolute;
+    top: 137px;
+    left: 230px;
+    padding-left: 5px;
+}
+
+.textentryreview {
+    width: 337px;
+    height: 19px;
+    position: absolute;
+    top: 170px;
+    left: 230px;
+    display: none;
+    background: #fff;
+}
+
+
+.divHotSpot {
+    position: absolute;
+    cursor: pointer;
+    background: transparent;
+    outline: none;
+    border: none;
+}
+.divreviewsubmit{
+    display: flex;
+    justify-content: center
+}
+.activity {
+    overflow: auto;
+}
+
+#div_feedback {
+    display: none;
+    height: auto;
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd;
+    /*background: #F0F0F0;*/
+    width: 100%;
+}
+
+.div_fdkcontent {
+    margin: 0 10%;
+}
+
+.greenspan {
+    color: #01662C;
+    font-weight: bold;
+}
+
+.redspan {
+    color: #B22222;
+    font-weight: bold;
+}
+
+.start-btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+
+/* SG */
+.group-wrapper {
+    width: 100%;
+}
+
+.text-content {
+    /*margin: 0 8%;*/
+}
+
+.radio-group, .checkbox-group {
+    /*margin: 0 8%;*/
+}
+
+.radio-group {
+    padding-bottom: 2%;
+}
+
+.submitbtn {
+    /*margin: 0 8%;*/
+    padding-bottom: 1px;
+}
+
+.radio-group {
+    padding-top: 1.5%;
+}
+
+
+#radio1, #radio2, #radio3, #radio4, #radio5, #radio6 {
+    position: absolute;
+    margin-left: -10px;
+    cursor: pointer;
+}
+
+
+/* The container */
+.checkbox-item {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+ /* Hide the browser's default checkbox */
+ .checkbox-item input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    margin-top: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    background-color: #eee;
+    margin: 5px;
+    border: 2px solid #999;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox-item:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox-item input:checked ~ .checkmark {
+    background-color: #047a9c;
+    border: 2px solid #047a9c;
+
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox-item input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox-item .checkmark:after {
+    left: 5px;
+    top: 2px;
+    width: 3px;
+    height: 7px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+#radio-elements {
+    background: #fff;
+    padding: 5% 0% 5% 0%;
+    border-radius: 5px;
+    /*margin-right: 2%;
+    margin-left: 2%;*/
+}
+
+#checkbox-elements {
+    background: #fff;
+    /*margin-left: 2%;
+    margin-right:2%;*/
+    border-radius: 5px;
+    padding: 5%;
+}
+
+#radio-elements img {
+    cursor: pointer;
+    width: 100px;
+    margin-top: 10px;
+}
+
+#submitdiv {
+    /*background: #fff;*/
+    /*margin-left: 2%;
+    margin-right:2%;*/
+    border-radius: 5px;
+    padding: 1%;
+    text-align: center;
+}
+
+#radio-elements label {
+    margin-left: 13%;
+    margin-top: 3%;
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 0px 5px 5px 5px;
+    text-align: center;
+}
+
+#radio-elements l {
+    position: relative;
+    /*margin-left: 15px;*/
+}
+/*Radiobutton.css*/
+
+
+#radio-elements label {
+    display: inline-block;
+}
+
+    #radio-elements label + label {
+        margin-left: 13%;
+    }
+
+#radio-elements {
+    color: #999;
+    font-size: 15px;
+    /*position: relative;*/
+}
+
+#radio-elements span {
+        position: relative;
+        padding-left: 11px;
+        cursor: pointer;
+}
+
+ #radio-elements span:after {
+            content: '';
+            width: 25px;
+            height: 25px;
+            border: 2px solid;
+            position: absolute;
+            right: 93%;
+            background: #FFF;
+            bottom: 70px;
+            border-radius: 100%;
+            -ms-border-radius: 100%;
+            -moz-border-radius: 100%;
+            -webkit-border-radius: 100%;
+            box-sizing: border-box;
+            -ms-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+}
+ #radio-elements input[type="radio"] {
+        position: absolute;
+        z-index: 1;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+}
+
+#radio-elements input[type="radio"]:checked + span {
+            color: #047a9c;
+}
+
+.without-before:before {
+    content: none !important;
+}
+
+#radio-elements input[type="radio"]:checked + span:before {
+    content: '';
+    width: 17px;
+    height: 17px;
+    position: absolute;
+    z-index: 1;
+    background: #047a9c;
+    right: 111px;
+    bottom: 74px;
+    border-radius: 100%;
+    -ms-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+}
+
+/*Radiobutton.css*/
+
+/*fa fa-times */
+.checkbox-item .fa-times {
+    margin-top: 1px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    background-color: #fff;
+    margin-left: 5px;
+}
+
+
+
+/* fa fa-times */
+
+/* fa fa-check */
+.checkbox-item .fa-check {
+    margin-top: 1px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    background-color: #fff;
+    font-weight: lighter;
+    margin-left: 5px;
+}
+
+.radio-fa-check {
+    position: relative;
+    bottom: 8px;
+    right: 12px;
+    float: left;
+    width: 0px;
+    background-color: #fff;
+    font-weight: lighter;
+    z-index: 1;
+}
+
+.radio-fa-check-incorrect {
+    position: relative;
+    bottom: 11px;
+    right: 12px;
+    float: left;
+    width: 0px;
+    background-color: #fff;
+    font-weight: lighter;
+    z-index: 1;
+}
+
+.div_fdkcontent {
+    /*text-align: center;*/
+}
+/* SG */
+.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.enabled {
+    cursor: pointer;
+    opacity: 1;
+}
+/*intro-content CSS Start */
+.intro-content {
+    padding-bottom: 15px;
+}
+
+.pageheading {
+    /*margin: 0% 8%;*/
+}
+
+.intro-content h2 {
+    /*margin: 0% 5%;*/
+}
+
+
+#climate-deal {
+    width: 50%;
+    float: left;
+    margin: 22px 2%;
+}
+
+.intro-content .intro-p p {
+    margin-top: 0px;
+}
+
+.question_txt p {
+    display: -webkit-inline-box;
+    padding-left: 10px;
+}
+
+.question-band .qheight {
+    margin-top: 20px;
+}
+
+/*intro-content CSS End */
+
+
+
+/*Question Css*/
+.questionband {
+    float: left;
+}
+
+.questionband input[type='text'], .questionband input[type='number'] {
+        text-align: center;
+        width: 100px;
+}
+
+.previous, .next {
+    padding-bottom: 15px;
+}
+
+.question_icon {
+    float: left;
+    width: 60px;
+    margin-top: 10px;
+}
+
+.question_icon span {
+        border-radius: 30px;
+        background: #007AA2;
+        color: #FFF;
+        font-size: 20px;
+        padding: 12px 22px 15px 22px;
+}
+
+.question_txt {
+    margin-left: 60px;
+    cursor: pointer;
+}
+
+
+/*Question Css*/
+
+
+/* Media Library */
+.media-library {
+    margin: 0 3%;
+    display: flex;
+}
+
+.search-filter {
+    width: 100%;
+}
+
+.search-bar {
+    width: 65%;
+    float: left;
+    margin-left: 15px;
+}
+
+.search-bar input {
+        height: 40px;
+        width: 100%;
+        background: #EBEBEB;
+        border: none;
+        border-radius: 5px;
+        padding-left: 10px;
+}
+
+.filter-bar {
+    width: 27%;
+    float: left;
+    margin-left: 40px;
+}
+
+.filter-bar input {
+        height: 40px;
+        width: 98%;
+        background: #EBEBEB;
+        border: none;
+        border-radius: 5px;
+        padding-left: 10px;
+ }
+
+.media-group {
+    float: left;
+    margin-top: 25px;
+}
+
+.media-row {
+    width: 100%;
+    display: flex;
+}
+
+.media-row .media-col-1, .media-row .media-col-2, .media-row .media-col-3 {
+    width: 33.33%;
+    float: left;
+    padding: 0px 20px;
+}
+
+.media-row .media-col-1 img, .media-row .media-col-2 img, .media-row .media-col-3 img {
+     width: 100%;
+}
+
+.media-text {
+    display: flex;
+}
+
+.media-text p {
+    float: left;
+}
+.media-text i {
+    float: right;
+    font-size: 20px;
+    color: #0E82A8;
+     margin-left: 25px;
+}
+
+#header-title input {
+    float: right;
+    margin-right: 20px;
+    background: #007AA3;
+    color: #fff;
+    border-radius: 10px;
+}
+/* Media Library */
+
+.continuebtn {
+    margin-bottom: 10px;
+    display: flex;
+    /*justify-content: center;*/
+}
+
+.cchkitem, .icchkitem, .echkitem {
+    width: 24px;
+    height: 19px;
+    position: absolute;
+    top: 0;
+    left: -10px;
+}
+
+.cchkitem {
+    background-image: url(../assets/images/checkcorrect.png);
+    background-repeat: no-repeat;
+    margin-left: 10px;
+}
+
+.icchkitem {
+    background-image: url(../assets/images/checkincorrect.png);
+    background-repeat: no-repeat;
+    margin-left: 10px;
+}
+
+
+
+/*assessment css */
+
+.questioninnerwrapper .inputcircle , #Summary .inputcircle {
+    position: relative;
+    padding-left: 6px;
+    cursor: pointer;
+    color: gray;
+    left: -22px;
+}
+.questioninnerwrapper .inputcircle:after ,#Summary .inputcircle:after{
+        content: '';
+        width: 23px;
+        height: 23px;
+        border: 2px solid;
+        position: absolute;
+        left: 0px;
+        margin-top: 0%;
+        border-radius: 100%;
+        -ms-border-radius: 100%;
+        -moz-border-radius: 100%;
+        -webkit-border-radius: 100%;
+        box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+}
+    
+.assessmentradio:checked + .inputcircle:before {
+        content: '';   
+        height: 15px;
+        width: 15px;
+        position: absolute;
+        background: #047a9c;
+        left: 4px;
+        margin-top: 4px;
+        border-radius: 100%;
+        -ms-border-radius: 100%;
+        -moz-border-radius: 100%;
+        -webkit-border-radius: 100%;
+}
+    
+.assessmentradio:checked + .inputcircle {
+    color: #047a9c;
+}
+    
+ #questioninnerwrapper.inputcircle , #Summary.inputcircle {
+    position: relative;
+    padding-left: 6px;
+    cursor: pointer;
+    color: gray;
+    left: -22px;
+}
+.assessmentradio {
+        opacity: 0;
+}
+    
+.assessmentradio{
+    position: absolute;
+    margin-left: -10px;
+    cursor: pointer;
+}
+.questionfdk{
+    display: none;
+}
+.iscorrect{
+   position: absolute;
+    left: -43px;
+}
+    .summaryquestion{
+        margin-bottom: 20px;
+        float: left;
+        margin-left: -40px;
+    }
+    .summaryoptions{
+        min-height: 75px;
+        height: auto;
+        margin-bottom: 10px;
+        width: 100%
+    }
+    .question-container{
+        margin-top: 10px;
+        float: left;
+        width: 100%;
+        background: #F0F0F0;
+    }
+    .questioninnerwrapper{
+        background: #fff;
+        margin-top: 40px;
+        height: auto;
+        overflow: auto;
+        padding-bottom: 40px;
+        border-radius: 5px;
+    }
+    #Questioninfo{
+        font-weight: bold;       
+    }
+    #summaryheading{
+        border-top: 1px solid #cdcdcd;
+        border-bottom: 1px solid #cdcdcd;
+        margin-left: -20px;
+        margin-right: 0;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+.intro-content-question:not(.summaryquestion){
+    margin: 0 10%;
+}
+
+    .submitdiv{
+        float: left;
+        width: 100%;
+        margin-top: 35px;
+        margin-bottom: 35px;
+       
+    }
+    #QuetionText{
+        margin-top: 20px;
+        padding-top: 20px;
+        padding-right: 10px;
+    }
+    .question-band{
+        float: left;
+        margin-left: 8%;
+    }
+   .quetiontext{
+       margin-left: 20px;
+   }
+
+   @-moz-document url-prefix() {
+    #radio-elements input[type="radio"]:checked + span:before {
+        
+        left: -13px !important;     
+    }
+    .radio-fa-check{
+        bottom: 7px !important;
+        }
+     .radio-fa-check-incorrect{
+            right: 13px !important;
+        }    
+  }
