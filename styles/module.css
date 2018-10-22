@@ -374,7 +374,13 @@
 #radio-elements input[type="radio"]:checked + span {
             color: #047a9c;
 }
+#radio-elements .correct:checked + span{
+    color: #01662C !important;
+}
 
+#radio-elements .incorrect:checked + span{
+    color: #B22222 !important;
+}
 .without-before:before {
     content: none !important;
 }

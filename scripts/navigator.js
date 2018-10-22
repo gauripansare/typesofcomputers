@@ -92,6 +92,9 @@ var _Navigator = (function () {
         }
         _ModuleCommon.OnPageLoad();
         submitCounter = 0;
+        if ((/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent))) {
+            $('#footer-navigation').css('display', 'table');
+        }
     }
     return {
         Get: function () {

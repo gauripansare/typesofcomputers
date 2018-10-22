@@ -117,7 +117,7 @@ $(document).on('click', ".activityimg", function (event) {
 });
 
 
-$(document).on('click', ".start-btn", function (event) {
+$(document).on('click', ".startbtn", function (event) {
     _Navigator.Next();
 });
 $(document).on('click', "#submitbtn", function (event) {
