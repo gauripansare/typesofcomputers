@@ -140,7 +140,7 @@ var _Navigator = (function () {
             if (_currentPageObject.isStartPage) {
                 $(".main-content").load(pageUrl, function () {
                     OnPageLoad();
-                    $("h1").focus();
+                    $("#titleheader").focus();
                 });
             } else {
                 $(".main-content").fadeTo(250, 0.25, function () {
@@ -152,10 +152,10 @@ var _Navigator = (function () {
                             showQuestion();
                         }
                         if(_currentPageObject.pageId == "p2")
-                            setReader("titleheader");
+                            $("#titleheader").focus();
                         else
                         {
-                            setReader("progressdiv");
+                            $("#progressdiv").focus();
                         }
                         // $("#hintdiv").show();
                         // if(_currentPageObject.hideHint !=undefined && _currentPageObject.hideHint)
