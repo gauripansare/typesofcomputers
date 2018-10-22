@@ -381,6 +381,9 @@
 #radio-elements .incorrect:checked + span{
     color: #B22222 !important;
 }
+#radio-elements .correct + span{
+    color: #01662C !important;
+}
 .without-before:before {
     content: none !important;
 }

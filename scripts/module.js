@@ -234,6 +234,7 @@ var _ModuleCommon = (function () {
 
         },
         OnSubmit: function () {
+            debugger;
             var pageData = this.GetPageDetailData();
             var fdbkUrl = "";
             _Navigator.IncrementCounter();
@@ -300,7 +301,7 @@ var _ModuleCommon = (function () {
                 $("input[type='radio']").k_enable();
                 $("input[type='radio']").removeAttr("checked");
             }          
-           
+            $("input[type='radio']").removeClass("incorrect");
             $("#div_feedback").hide();
             $('html,body').animate({ scrollTop: document.body.scrollHeight}, 500, function () {  $("#div_feedback .div_fdkcontent").empty();});
             //$('html,body').animate({ scrollTop: 0 }, 500, function () { enable(); });
