@@ -234,7 +234,6 @@ var _ModuleCommon = (function () {
 
         },
         OnSubmit: function () {
-            debugger;
             var pageData = this.GetPageDetailData();
             var fdbkUrl = "";
             _Navigator.IncrementCounter();
