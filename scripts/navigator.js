@@ -6,7 +6,7 @@ var _Navigator = (function () {
     var progressLevels = [11];
     var totalsimscore = 18;
     var submitCounter = 0;
-    var presentermode =false;
+    var presentermode = false; 
     var _NData = {
         "p1": {
             pageId: "p1",
@@ -64,17 +64,17 @@ var _Navigator = (function () {
             dataurl: "p7.htm",
             hinturl: "hintp7.htm",
             hasActivity: true,
-           
+
         },
-        "p8":{
+        "p8": {
             pageId: "p8",
             prevPageId: "p7",
             nextPageId: "",
             dataurl: "p8.htm",
             hasActivity: true,
-            isLastPage:true,
-            isAssessment:true,
-            hideHint:true,
+            isLastPage: true,
+            isAssessment: true,
+            hideHint: true,
         }
     }
     var _StateData = {}
@@ -91,9 +91,16 @@ var _Navigator = (function () {
             $("#header-title").addClass("startpage");
         }
         _ModuleCommon.OnPageLoad();
+
+        if (_Navigator.IsPresenterMode()) {
+            _ModuleCommon.AppendFooter();
+        }
         submitCounter = 0;
         if ((/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent))) {
             $('#footer-navigation').css('display', 'table');
+        }
+        if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+            $(".group-wrapper img").attr("aria-hidden", "true");
         }
     }
     return {
@@ -102,9 +109,12 @@ var _Navigator = (function () {
         },
         Start: function () {
             this.LoadPage("p1");
+            if (this.IsPresenterMode()) {
+                _ModuleCommon.AppendFooter();
+            }
         },
         LoadPage: function (pageId, jsonObj) {
-            
+
             if (jsonObj == undefined) {
                 jsonObj = {};
             }
@@ -115,12 +125,12 @@ var _Navigator = (function () {
             $("#header-title").show();
             $("footer").show();
 
+            
             if (_currentPageObject.isStartPage != undefined && _currentPageObject.isStartPage) {
                 $("#linkprevious").k_disable();
                 $("#linknext").k_enable();
                 $("footer").hide();
                 $("#header-progress").hide();
-
             }
             if (_currentPageObject.hasActivity != undefined && _currentPageObject.hasActivity && !this.IsAnswered()) {
                 $("#linknext").k_disable();
@@ -133,7 +143,7 @@ var _Navigator = (function () {
             if (_currentPageObject.isLastPage != undefined && _currentPageObject.isLastPage) {
                 $("#linknext").k_disable();
             }
-            
+
             _currentPageObject.isVisited = true;
 
             var pageUrl = _Settings.dataRoot + _currentPageObject.dataurl + _Caching.GetUrlExtension();;
@@ -143,29 +153,20 @@ var _Navigator = (function () {
                     $("#titleheader").focus();
                 });
             } else {
+                cnt1 = 0;
                 $(".main-content").fadeTo(250, 0.25, function () {
                     $(".main-content").load(pageUrl, function () {
                         $(this).fadeTo(600, 1)
                         OnPageLoad();
-                        if(_currentPageId=="p8") // need to change to assessment id
+                        if (_currentPageId == "p8") // need to change to assessment id
                         {
-                            showQuestion();
+                           _Assessment.ShowQuestion();
                         }
-                        if(_currentPageObject.pageId == "p2")
+                        if (_currentPageObject.pageId == "p2")
                             $("#titleheader").focus();
-                        else
-                        {
+                        else {
                             $("#progressdiv").focus();
                         }
-                        // $("#hintdiv").show();
-                        // if(_currentPageObject.hideHint !=undefined && _currentPageObject.hideHint)
-                        // {
-                        //     $("#hintdiv").hide();
-                        // }
-                          
-                        // $(".hintcontent").load("pagedata/hintdata/" + _currentPageObject.hinturl, function () { });
-                       
-                        //$("h2.pageheading").focus();
                     });
                 })
             }
@@ -186,16 +187,16 @@ var _Navigator = (function () {
             }
         },
         Prev: function () {
-            if ( _currentPageObject.pageId == "p8" && typeof(currentQuestionIndex) !='undefined'  &&  currentQuestionIndex > 0   ) {
-				$("#ReviewIns").hide();
+            if (_currentPageObject.pageId == "p8" && typeof (currentQuestionIndex) != 'undefined' && currentQuestionIndex > 0) {
+                $("#ReviewIns").hide();
                 $(".intro-content-question").show();
                 $("#Questioninfo").show();
-                currentQuestionIndex  = currentQuestionIndex - 1;
+                currentQuestionIndex = currentQuestionIndex - 1;
                 $("#Summary").empty();
                 $("#Summary").hide();
-				showQuestion();				
+               _Assessment.ShowQuestion();
             }
-            else{
+            else {
                 this.LoadPage(_currentPageObject.prevPageId);
             }
 
@@ -206,44 +207,42 @@ var _Navigator = (function () {
                 var custFunction = new Function(_currentPageObject.customNext.jsFunction);
                 custFunction();
             }
-            if ( _currentPageObject.pageId == "p8")
-            {
-               
-             if ( typeof(currentQuestionIndex) !='undefined' && typeof(gRecordData.Questions) !='undefined'  && (currentQuestionIndex +1) < gRecordData.Questions.length ) {
-                    currentQuestionIndex  = currentQuestionIndex + 1
+            if (_currentPageObject.pageId == "p8") {
+
+                if (typeof (currentQuestionIndex) != 'undefined' && typeof (gRecordData.Questions) != 'undefined' && (currentQuestionIndex + 1) < gRecordData.Questions.length) {
+                    currentQuestionIndex = currentQuestionIndex + 1
                     $("#Questioninfo").show();
-                    showQuestion()
-                    
+                   _Assessment.ShowQuestion()
+
                     //this.UpdateProgressBar();
-                    if(gRecordData.Status !="Completed")
-                        {
-                            $("#linknext").k_disable();    
-                            $("#linkprevious").k_disable();
-                        }
-    
+                    if (gRecordData.Status != "Completed" && !presentermode) {
+                        $("#linknext").k_disable();
+                        $("#linkprevious").k_disable();
+                    }
+
                 }
 
-              else  if ( typeof(currentQuestionIndex) !='undefined' && typeof(gRecordData.Questions) !='undefined'  && (currentQuestionIndex +1) == gRecordData.Questions.length ) {
+                else if (typeof (currentQuestionIndex) != 'undefined' && typeof (gRecordData.Questions) != 'undefined' && (currentQuestionIndex + 1) == gRecordData.Questions.length) {
                     //this.UpdateProgressBar();
                     // Show review instruction
-                    
-                        $(".intro-content-question").hide();
-                        $(".questionwrapper").hide();
-                        currentQuestionIndex  = currentQuestionIndex + 1;
-                        $("#Summary").show();
-                        $("#Questioninfo").hide();
-				        $("#Summary").load("pagedata/Summary.htm",function(){
-                            showSummary()                           
-                            $("#linkprevious").k_enable();
-                            
-                        })
-                        $("#climate-deal").css("margin-left","23%");
-                        $("#linknext").k_disable();
-                        
 
-                }                
-          
-			}
+                    $(".intro-content-question").hide();
+                    $(".questionwrapper").hide();
+                    currentQuestionIndex = currentQuestionIndex + 1;
+                    $("#Summary").show();
+                    $("#Questioninfo").hide();
+                    $("#Summary").load("pagedata/Summary.htm", function () {
+                       _Assessment.ShowSummary()
+                        $("#linkprevious").k_enable();
+
+                    })
+                    $("#climate-deal").css("margin-left", "23%");
+                    $("#linknext").k_disable();
+
+
+                }
+
+            }
             else {
 
                 this.LoadPage(_currentPageObject.nextPageId);
@@ -256,14 +255,14 @@ var _Navigator = (function () {
                     visitpage++;
                 }
             }
-            visitpage += this.GetAnswerCount() ;
+            visitpage += this.GetAnswerCount();
             return visitpage;
         },
-        GetAnswerCount:function(){
-          var cnt =  (gRecordData.Questions.filter(function (item) {
+        GetAnswerCount: function () {
+            var cnt = (gRecordData.Questions.filter(function (item) {
                 return item.IsAnswered;
-            }).length  ) 
-           
+            }).length)
+
             return cnt;
         },
         UpdateProgressBar: function () {
@@ -289,14 +288,13 @@ var _Navigator = (function () {
                     ObtainPoint += _NData[i].points
                 }
             }
-            var quizScore =0;
-            for(var b=0; b < gRecordData.Questions.length; b++){
-                if(gRecordData.Questions[b].IsAnswered && gRecordData.Questions[b].IsCorrect )
-                {
-                    quizScore +=2;
+            var quizScore = 0;
+            for (var b = 0; b < gRecordData.Questions.length; b++) {
+                if (gRecordData.Questions[b].IsAnswered && gRecordData.Questions[b].IsCorrect) {
+                    quizScore += 2;
                 }
             }
-            var score = ((ObtainPoint +quizScore)/ (totalsimscore + gRecordData.AssessmentScore)) * 100;
+            var score = ((ObtainPoint + quizScore) / (totalsimscore + gRecordData.AssessmentScore)) * 100;
             return score.toFixed(0);
         },
         UpdateScore: function () {
@@ -335,11 +333,14 @@ var _Navigator = (function () {
         GetCounter: function () {
             return submitCounter;
         },
-        SetPresenterMode:function(val){
+        SetPresenterMode: function (val) {
             presentermode = val;
         },
-        IsPresenterMode:function(){
+        IsPresenterMode: function () {
             return presentermode;
+        },
+        IsScorm: function(){
+            
         }
     };
 })();
@@ -353,27 +354,27 @@ function setReader(idToStartReading) {
 
 
 function removeCSS(cssFileToRemove) {
-	for(var w=0; w < document.styleSheets.length; w++ ){
-		if(document.styleSheets[w].href.indexOf(cssFileToRemove) != -1 ) {
-			document.styleSheets[w].disabled = true;
-		}
-	}
+    for (var w = 0; w < document.styleSheets.length; w++) {
+        if (document.styleSheets[w].href.indexOf(cssFileToRemove) != -1) {
+            document.styleSheets[w].disabled = true;
+        }
+    }
 }
 function addCSS(cssFileToAdd) {
-	var isCSSAlreadyAdded = false;
-	for(var w=0; w < document.styleSheets.length; w++ ){
-		if(document.styleSheets[w].href.indexOf(cssFileToAdd) != -1 ) {
-			isCSSAlreadyAdded = false;
-		}
-	}
-	console.log(isCSSAlreadyAdded + " --")
-	if(! isCSSAlreadyAdded){
-		var newlink = document.createElement("link");
-		newlink.setAttribute("rel", "stylesheet");
-		newlink.setAttribute("type", "text/css");
-		newlink.setAttribute("href", cssFileToAdd);
-		document.getElementsByTagName("head").item(0).appendChild(newlink);
-	}
+    var isCSSAlreadyAdded = false;
+    for (var w = 0; w < document.styleSheets.length; w++) {
+        if (document.styleSheets[w].href.indexOf(cssFileToAdd) != -1) {
+            isCSSAlreadyAdded = false;
+        }
+    }
+    console.log(isCSSAlreadyAdded + " --")
+    if (!isCSSAlreadyAdded) {
+        var newlink = document.createElement("link");
+        newlink.setAttribute("rel", "stylesheet");
+        newlink.setAttribute("type", "text/css");
+        newlink.setAttribute("href", cssFileToAdd);
+        document.getElementsByTagName("head").item(0).appendChild(newlink);
+    }
 }
 
 function changeCSS(cssFile, cssLinkIndex) {

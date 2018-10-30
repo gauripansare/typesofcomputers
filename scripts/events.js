@@ -132,11 +132,11 @@ $(document).on('click', "#continuebtn", function (event) {
 $(document).on('change', "input[type='checkbox'].pagecheckbox", function (event) {
     _ModuleCommon.EnableSubmit();
     if ($(this).prop("checked") == true) {
-        $(this).closest("label").css({ "font-weight": "bold" })
+        $(this).next("label").css({ "font-weight": "bold" })
     }
     else
     {
-        $(this).closest("label").css({ "font-weight": "normal" })
+        $(this).next("label").css({ "font-weight": "normal" })
     }
 });
 $(document).on('change', "input[type='radio'].pageradio", function (event) {

@@ -45,6 +45,9 @@
                 margin-left: 10%;
                 margin-top: 3%;
             }
+            #checkbox-elements{
+                margin-left: 0;
+            }
         }
 
         @media screen and (max-width: 840px) {
@@ -64,6 +67,9 @@
             .summary-content {
                 margin: 0 10% !important;
             }
+            #checkbox-elements{
+                padding: 0 3%;
+            }
         }
 
         @media screen and (max-width : 768px) {
@@ -80,7 +86,7 @@
             }
 
             #radio-elements label {
-                margin-left: 6%;
+                margin-left: 10%;
                 /* margin-top: 3%; */
             }
 
@@ -111,11 +117,6 @@
             font-size: 13px;
         }
 
-        #footer-navigation .previous, #footer-navigation .next {
-            /*margin-top: 2%;
-        padding: 0% 8% 3% 0%;
-        display: inline-table;*/
-        }
 
         #footer-div {
             margin-left: 8%;
@@ -168,25 +169,19 @@
         .question-band {
             margin-left: 13%;
         }
+        #checkbox-elements{
+            padding: 0;
+        }
     }
 
     @media screen and (max-width : 480px) {
-
-        #header-title:not(.startpage) img {
-            /*display: none;*/
-        }
-
-        .statpageheadmargin {
-            /*margin-top:60px !important;*/
-        }
-
         #radio-elements input[type="radio"]:checked + span:before {
             right: 116px;
         }
 
         .radio-fa-check {
-            bottom: 2px;
-            right: 9px;
+            bottom: 6px;
+            right: 11px;
         }
 
         .question-band {
@@ -212,7 +207,9 @@
         #radio-elements img {
             width: 85%;
         }       
-
+        #radio-elements span{
+            padding-left: 9px;
+        }
         .summary-content {
             margin: 0 11% !important;
         }
@@ -220,12 +217,12 @@
 
     @media screen and (max-width: 414px) {
         #radio-elements span {
-            padding-left: 10px;
+            padding-left: 9px;
         }
-
+        
         .radio-fa-check-incorrect {
-            bottom: 6px;
-            right: 10px;
+            bottom: 10px;
+            right: 11px;
         }
 
         .question-band {

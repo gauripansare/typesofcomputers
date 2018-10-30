@@ -6,6 +6,21 @@
     blue: "#4E7092",
 }
 
+var userAgentCustom = window.navigator.userAgent;
+var ua = navigator.userAgent.toLowerCase();
+var isAndroid = ua.indexOf("android") > -1;
+var isIE11version = !!navigator.userAgent.match(/Trident.*rv\:11\./);
+var isIOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+var CurClientWidth = window.innerWidth;
+var Macbrowser = navigator.userAgent.indexOf('Chrome');
+var Macos = navigator.userAgent.indexOf('Mac');
+var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+var isIpad = userAgentCustom.match(/iPad/i)
+var isIphone = (navigator.userAgent.match(/iPhone/i))
+var isIEEdge = /Edge/.test(navigator.userAgent)
+var isFirefox = /Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)
+
 var _Settings = {
     dataRoot: "pagedata/",
     assetsRoot: "assets/",

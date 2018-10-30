@@ -178,14 +178,13 @@
     width: 100%;
 }
 
-.text-content {
-    /*margin: 0 8%;*/
-}
 
-.radio-group, .checkbox-group {
-    /*margin: 0 8%;*/
+.checkbox-group {
+    background: #fff;
+    border-radius: 5px;
+    padding: 2%;
+    margin-top: 20px;
 }
-
 .radio-group {
     padding-bottom: 2%;
 }
@@ -221,8 +220,8 @@
     user-select: none;
 }
 
- /* Hide the browser's default checkbox */
- .checkbox-item input {
+    /* Hide the browser's default checkbox */
+    #checkbox-elements input {
         position: absolute;
         opacity: 0;
         cursor: pointer;
@@ -242,12 +241,12 @@
 }
 
 /* On mouse-over, add a grey background color */
-.checkbox-item:hover input ~ .checkmark {
+.checkbox-item:hover input + .checkbox-item .checkmark {
     background-color: #ccc;
 }
 
 /* When the checkbox is checked, add a blue background */
-.checkbox-item input:checked ~ .checkmark {
+#checkbox-elements input:checked + .checkbox-item span {
     background-color: #047a9c;
     border: 2px solid #047a9c;
 
@@ -261,8 +260,12 @@
 }
 
 /* Show the checkmark when checked */
-.checkbox-item input:checked ~ .checkmark:after {
+#checkbox-elements input:checked + .checkbox-item .checkmark:after {
     display: block;
+}
+
+.without-before:before {
+    content: none !important;
 }
 
 /* Style the checkmark/indicator */
@@ -285,13 +288,18 @@
     /*margin-right: 2%;
     margin-left: 2%;*/
 }
-
+#checkbox-elements input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
 #checkbox-elements {
     background: #fff;
     /*margin-left: 2%;
     margin-right:2%;*/
     border-radius: 5px;
-    padding: 5%;
+    padding: 0 5%;
+    margin-left: 3.5%;
 }
 
 #radio-elements img {
@@ -371,24 +379,24 @@
         -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 }
 
-#radio-elements input[type="radio"]:checked + span {
+#radio-elements input[type="radio"]:checked + label span {
             color: #047a9c;
 }
-#radio-elements .correct:checked + span{
+#radio-elements .correct:checked + label span{
     color: #01662C !important;
 }
 
-#radio-elements .incorrect:checked + span{
+#radio-elements .incorrect:checked + label span{
     color: #B22222 !important;
 }
-#radio-elements .correct + span{
+#radio-elements .correct + label span{
     color: #01662C !important;
 }
 .without-before:before {
     content: none !important;
 }
 
-#radio-elements input[type="radio"]:checked + span:before {
+#radio-elements input[type="radio"]:checked + label span:before {
     content: '';
     width: 17px;
     height: 17px;
@@ -437,7 +445,7 @@
 .radio-fa-check {
     position: relative;
     bottom: 8px;
-    right: 12px;
+    right: 16px;
     float: left;
     width: 0px;
     background-color: #fff;
@@ -448,7 +456,7 @@
 .radio-fa-check-incorrect {
     position: relative;
     bottom: 11px;
-    right: 12px;
+    right: 16px;
     float: left;
     width: 0px;
     background-color: #fff;
@@ -456,9 +464,6 @@
     z-index: 1;
 }
 
-.div_fdkcontent {
-    /*text-align: center;*/
-}
 /* SG */
 .disabled {
     cursor: not-allowed;
@@ -474,16 +479,6 @@
 .intro-content {
     padding-bottom: 15px;
 }
-
-.pageheading {
-    /*margin: 0% 8%;*/
-}
-
-.intro-content h2 {
-    /*margin: 0% 5%;*/
-}
-
-
 #climate-deal {
     width: 50%;
     float: left;
@@ -782,6 +777,32 @@
    .quetiontext{
        margin-left: 20px;
    }
+.radiotext{
+    margin:0;
+}
+.ffreading{
+    position: absolute !important;
+    opacity: 0;
+    font-size: 0px !important;
+}
+.checkbox-elements-div{
+    padding: 5% 0% 5% 0%;
+}
+#radio-elements input[type="radio"]:checked + label i + span:before {
+    background: none;
+}
+.presentationModeFooter {
+    display: inline-block;
+    background-color: #1a76cb;
+    height: 29px;
+    width: 100%;
+    color: white;
+    text-align: center;
+}
+.option_div img{
+    width: 100px;
+    height: 67px;
+}
 
    @-moz-document url-prefix() {
     #radio-elements input[type="radio"]:checked + span:before {
@@ -792,6 +813,9 @@
         bottom: 7px !important;
         }
      .radio-fa-check-incorrect{
-            right: 13px !important;
+            right: 16px !important;
+        }
+        #radio-elements input[type="radio"]:checked + label span{
+            padding-left: 7px;
         }    
   }
