@@ -1,12 +1,15 @@
 ﻿//This api will contain navigation logic and page load.
 //It will also handle the question navigation if the page is having multiple questions.
 var _Navigator = (function () {
+    var packageType = "";//presenter/scorm/revel
     var _currentPageId = "";
     var _currentPageObject = {};
     var progressLevels = [11];
     var totalsimscore = 18;
     var submitCounter = 0;
-    var presentermode = false; 
+    //var presentermode = false;
+    var submitCounter = 0;
+    var bookmarkpageid = "";
     var _NData = {
         "p1": {
             pageId: "p1",
@@ -117,7 +120,9 @@ var _Navigator = (function () {
 
             if (jsonObj == undefined) {
                 jsonObj = {};
-            }
+            }          
+
+            bookmarkpageid = pageId;
             _currentPageId = pageId;
             this.UpdateProgressBar();
             _currentPageObject = _NData[_currentPageId]
@@ -125,7 +130,6 @@ var _Navigator = (function () {
             $("#header-title").show();
             $("footer").show();
 
-            
             if (_currentPageObject.isStartPage != undefined && _currentPageObject.isStartPage) {
                 $("#linkprevious").k_disable();
                 $("#linknext").k_enable();
@@ -167,6 +171,7 @@ var _Navigator = (function () {
                         else {
                             $("#progressdiv").focus();
                         }
+                        _Navigator.GetBookmarkData();
                     });
                 })
             }
@@ -215,7 +220,7 @@ var _Navigator = (function () {
                    _Assessment.ShowQuestion()
 
                     //this.UpdateProgressBar();
-                    if (gRecordData.Status != "Completed" && !presentermode) {
+                    if (gRecordData.Status != "Completed" && !this.IsPresenterMode()) {
                         $("#linknext").k_disable();
                         $("#linkprevious").k_disable();
                     }
@@ -327,6 +332,9 @@ var _Navigator = (function () {
             return false;
 
         },
+        CheckIfPageLoaded: function (pageid) {
+            return _NData[pageid].isLoaded != undefined && _NData[pageid].isLoaded ? true : false;
+        },
         IncrementCounter: function () {
             submitCounter = submitCounter + 1;
         },
@@ -334,14 +342,149 @@ var _Navigator = (function () {
             return submitCounter;
         },
         SetPresenterMode: function (val) {
-            presentermode = val;
+            packageType = val;
         },
         IsPresenterMode: function () {
-            return presentermode;
+            if (packageType == "presenter") {
+                return true;
+            }
+            else {
+                return false;
+            }
         },
-        IsScorm: function(){
-            
-        }
+        GetBookmarkData: function () {
+            if (!this.IsScorm() && !this.IsRevel())
+                return;
+            var bookmarkobj = {}
+            bookmarkobj.BMPageId = bookmarkpageid;
+            bookmarkobj.VisistedPages = this.GetNavigatorBMData();
+            //bookmarkobj.ProgressLevels = progressLevels;
+            bookmarkobj.ReviewData = _ModuleCommon.GetReviewData();
+            bookmarkobj.AssessmentData = _Assessment.Getbookmarkdata();
+            if (this.IsRevel()) {
+                if (k_Revel.get_LaunchData().mode == LaunchModes.do) {
+                    var suspend_data = JSON.stringify(bookmarkobj);
+                    k_Revel.set_StateData(JSON.parse(suspend_data))
+                    k_Revel.PostData(gRecordData.Score, gRecordData.AssessmentScore);
+                }
+            }
+            else if (this.IsScorm()) {
+                _ScormUtility.SetSuspendData(JSON.stringify(bookmarkobj))
+            }
+
+        },
+        GetNavigatorBMData: function () {
+            var gVisistedPages = [];
+            for (var i in _NData) {
+                if (_NData[i].isAnswered) {
+                    gVisistedPages.push(_NData[i].pageId)
+                }
+            }
+            return gVisistedPages;
+        },
+        SetNavigatorBMData: function (gVisistedPages) {
+
+            for (var i = 0; i < gVisistedPages.length; i++) {
+                _NData[gVisistedPages[i]].isAnswered = true;
+            }
+        },
+        SetBookMarkPage: function () {
+            if (!this.IsScorm() && !this.IsRevel())
+                return;
+            if (this.IsScorm()) {
+                _ScormUtility.SetBookMark(bookmarkpageid);
+            }
+            else if (this.IsRevel()) {
+                this.GetBookmarkData();
+            }
+        },
+        SetBookmarkData: function () {
+            debugger;
+            var bookmarkdata;
+            if (this.IsScorm()) {
+                bookmarkdata = _ScormUtility.GetSuspendData();
+            }
+            else if (this.IsRevel()) {
+                bookmarkdata = JSON.stringify(k_Revel.get_StateData())
+            }
+
+            if (bookmarkdata != undefined && bookmarkdata != "") {
+                bookmarkdata = JSON.parse(bookmarkdata);
+                bookmarkpageid = bookmarkdata.BMPageId;
+                this.SetNavigatorBMData(bookmarkdata.VisistedPages)
+                //progressLevels = bookmarkdata.ProgressLevels;
+                _ModuleCommon.SetReviewData(bookmarkdata.ReviewData)
+                _Assessment.Setbookmarkdata(bookmarkdata.AssessmentData)
+            }
+        },
+        GetBookMarkPage: function () {
+            return bookmarkpageid;
+        },
+        Initialize: function () {
+            debugger;
+            if (packageType == "scorm") {
+                _ScormUtility.Init();
+                _Navigator.SetBookmarkData();
+                //bookmarkpageid = _ScormUtility.GetBookMark();
+                this.GotoBookmarkPage();
+            }
+            else if (packageType == "revel") {
+                g_tempIntv = setInterval(function () {
+                    if ((typeof piSession != 'undefined' && typeof piSession.currentToken() != 'undefined' && piSession.currentToken() != null)) {
+                        clearInterval(g_tempIntv);
+                        g_tempIntv = null;
+                        //The rest of the code will go here.
+                        LifeCycleEvents.InitParams();
+                        LifeCycleEvents.OnLoad();
+                        if (!k_Revel.isLaunchInitialize()) {
+                            k_Revel.InitLaunch()
+                            var suspend_data = JSON.stringify(k_Revel.get_StateData());
+                            if (suspend_data != "" && suspend_data != "{}") {
+                                var isTrue = this.SetBookmarkData();
+                                if (isTrue && k_Revel.get_LaunchData().mode == "do") {
+                                    this.GotoBookmarkPage();
+                                } else {
+                                    k_Revel.set_StateData(JSON.parse(suspend_data))
+                                }
+                            }
+                        }
+                        if (k_Revel.get_LaunchData().mode == "review") {
+                            var suspend_data = JSON.stringify(k_Revel.get_StateData());
+                            if (suspend_data != "" && suspend_data != "{}") {
+                                this.SetBookmarkData(suspend_data);
+                                isReview = true;
+                            }
+                        }
+                    }
+                }, 100);
+
+            }
+            else {
+                _Navigator.Start();
+            }
+        },
+        GotoBookmarkPage: function () {
+
+            if (bookmarkpageid != undefined && bookmarkpageid != "") {
+                _Navigator.LoadPage(bookmarkpageid)
+            }
+            else {
+                _Navigator.Start();
+            }
+        },
+        IsScorm: function () {
+            if (packageType == "scorm")
+                return true;
+            return false;
+        },
+        IsRevel: function () {
+            if (packageType == "revel")
+                return true;
+            return false;
+        },
+        GetPackageType: function () {
+            return packageType;
+        },
     };
 })();
 

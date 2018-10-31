@@ -177,5 +177,12 @@ $(document).on("click", ".assessmentSubmit", function (event) {
 });
 
 
+window.onload = function () {
+    _ScormUtility.Init();
+}
+
+window.onunload = function () {
+    _ScormUtility.End();
+}
 
 

@@ -125,7 +125,7 @@ var _Assessment = (function () {
 			}
 			_Navigator.UpdateProgressBar();
 			$(".assessmentSubmit").k_disable();
-			//_Navigator.GetBookmarkData();
+			_Navigator.GetBookmarkData();
 		},
 		ShowQuestionPresenterMode: function () {
 			$(".assessmentSubmit").hide();
@@ -284,6 +284,7 @@ var _Assessment = (function () {
 			}
 			_Navigator.UpdateProgressBar();
 			var perscore = gRecordData.Score / parseInt(gRecordData.AssessmentScore) * 100;
+			this.SetScore(perscore);
 			$("#ScoreSummary").text("Score: " + perscore + "%");
 
 			$("#progressdiv").focus();

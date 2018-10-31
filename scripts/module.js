@@ -29,6 +29,12 @@ var _ModuleCommon = (function () {
             }
 
         },
+GetReviewData: function () {
+            return reviewData;
+        },
+        SetReviewData: function (rData) {
+            reviewData = rData;
+        },
         GetPageDetailData: function () {
             var currentPageData = _Navigator.GetCurrentPage();
             var pageData = _PData[currentPageData.pageId];
@@ -354,6 +360,7 @@ var _ModuleCommon = (function () {
                     _Navigator.SetPageScore(this.CalculateScore())
                     _Navigator.SetPageStatus(true);
                     this.EnableNext();
+                    _Navigator.GetBookmarkData();
                 }
 
             }
@@ -371,6 +378,7 @@ var _ModuleCommon = (function () {
                     _Navigator.SetPageScore(this.CalculateScore())
                     _Navigator.SetPageStatus(true);
                     this.EnableNext();
+                    _Navigator.GetBookmarkData();
                 }
             }
             $("#div_feedback").show();
@@ -382,7 +390,6 @@ var _ModuleCommon = (function () {
 
         },
         OnContinue: function () {
-
             $(".checkmark").show();
             $('input[type="checkbox"].incorrect').next("label").find("span").removeClass("without-before");
             $('input[type="checkbox"].incorrect').next("label").css({ "font-weight": "normal" })
@@ -516,7 +523,13 @@ var _ModuleCommon = (function () {
     }
 })();
 $(document).ready(function () {
+    debugger;
+    _Navigator.Initialize();
+    //$("h1:first").focus();
 
-    _Navigator.Start();
+    //if (_Settings.enableCache) {
+    //    _Caching.InitAssetsCaching();
+    //    _Caching.InitPageCaching();
+    //}
     $('body').attr({ "id": "thebody", "onmousedown": "document.getElementById('thebody').classList.add('no-focus');", "onkeydown": "document.getElementById('thebody').classList.remove('no-focus');" })
 });
