@@ -20,6 +20,11 @@ var isIpad = userAgentCustom.match(/iPad/i)
 var isIphone = (navigator.userAgent.match(/iPhone/i))
 var isIEEdge = /Edge/.test(navigator.userAgent)
 var isFirefox = /Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)
+var animTime = 1000;
+
+if (isIphone != null) {
+animTime = 3000;
+}
 
 var _Settings = {
     dataRoot: "pagedata/",

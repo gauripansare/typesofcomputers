@@ -385,7 +385,7 @@ GetReviewData: function () {
             $("input").k_disable();
             $("#div_feedback").css("display", "inline-block");
             $("#div_feedback .div_fdkcontent").load(fdbkUrl, function () {
-                $('html,body').animate({ scrollTop: document.body.scrollHeight }, 500, function () { });
+                $('html,body').animate({ scrollTop: document.body.scrollHeight }, isIphone, function () { });
             });
 
         },
