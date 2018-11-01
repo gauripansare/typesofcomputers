@@ -143,11 +143,6 @@ $(document).on('change', "input[type='radio'].pageradio", function (event) {
     _ModuleCommon.EnableSubmit();
      $('input[type="radio"]:checked').addClass('beforeClass');
 });
-
-
-
-
-
 $(document).on('click', ".reviewsubmit", function (event) {
     _Navigator.Next();
 });

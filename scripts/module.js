@@ -523,7 +523,7 @@ GetReviewData: function () {
     }
 })();
 $(document).ready(function () {
-    debugger;
+    
     _Navigator.Initialize();
     //$("h1:first").focus();
 

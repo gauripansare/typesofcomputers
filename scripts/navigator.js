@@ -399,7 +399,7 @@ var _Navigator = (function () {
             }
         },
         SetBookmarkData: function () {
-            debugger;
+            
             var bookmarkdata;
             if (this.IsScorm()) {
                 bookmarkdata = _ScormUtility.GetSuspendData();
@@ -421,7 +421,7 @@ var _Navigator = (function () {
             return bookmarkpageid;
         },
         Initialize: function () {
-            debugger;
+            
             if (packageType == "scorm") {
                 _ScormUtility.Init();
                 _Navigator.SetBookmarkData();
