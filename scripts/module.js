@@ -258,7 +258,7 @@ GetReviewData: function () {
         OnPageLoad: function () {
             var pageDetailData = this.GetPageDetailData();
             var currentPageData = _Navigator.GetCurrentPage();
-            //this.ApplycontainerWidth();
+            this.ApplycontainerWidth();
             $("#div_feedback").hide();
             if (pageDetailData != undefined && pageDetailData.radio != undefined) {
                 $("input[type='checkbox']").addClass("pagecheckbox");
