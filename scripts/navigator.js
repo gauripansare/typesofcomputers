@@ -304,7 +304,7 @@ var _Navigator = (function () {
         },
         UpdateScore: function () {
             var percScore = this.GetTotalScore()
-            $("#scorediv").html("Score: " + percScore + "%");
+            //$("#scorediv").html("Score: " + percScore + "%");
         },
         SetPageScore: function (points) {
             if (!_currentPageObject.isAnswered) {

@@ -358,7 +358,6 @@ div, p, span, input {
 .progressDiv {
     float: left;
     width: 135px;
-    border-right: #cccccc 1px solid;
     margin-left: -10px;
 }
 
