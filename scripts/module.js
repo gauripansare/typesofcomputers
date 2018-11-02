@@ -384,8 +384,12 @@ GetReviewData: function () {
             $("#div_feedback").show();
             $("input").k_disable();
             $("#div_feedback").css("display", "inline-block");
+            
             $("#div_feedback .div_fdkcontent").load(fdbkUrl, function () {
-                $('html,body').animate({ scrollTop: document.body.scrollHeight }, isIphone, function () { });
+                $('html,body').animate({ scrollTop: document.body.scrollHeight }, isIphone, function () { 
+                    $("#div_feedback .div_fdkcontent p").first().attr("tabindex","-1");
+                    $("#div_feedback .div_fdkcontent p").first().focus();
+                });
             });
 
         },
@@ -406,12 +410,17 @@ GetReviewData: function () {
                 $("input[type='radio']").k_enable();
                 $("input[type='radio']").removeAttr("checked");
             }
+            $('input[type="radio"].incorrect').removeAttr("aria-label");
             $("input[type='radio']").removeClass("incorrect");
             $('input[type="radio"]').removeAttr("aria-hidden");
+            $('input[type="radio"]').next().removeAttr("aria-hidden");
             $("#div_feedback").hide();
             $(".checkmark").show();
             $(".ffreading").remove();
-            $('html,body').animate({ scrollTop: document.body.scrollHeigh }, 500, function () { });
+            $('html,body').animate({ scrollTop: document.body.scrollHeigh }, 500, function () {
+                $("#radio-elements legend").attr("tabindex","-1");
+                $("#radio-elements legend").focus();
+             });
         },
         AddReviewData: function (isCorrect, fdkurl) {
             var pageData = this.GetPageDetailData();
