@@ -80,7 +80,9 @@ div, p, span, input {
         h1:focus, a:focus, input:focus, button:focus, textarea:focus, select:focus, h1:focus, a:active, input:active, button:active, textarea:active, select:active {
             outline: #ff8c00 solid 2px;
         }
-
+        #progressdiv:focus,#titleheader:focus,#header1:focus,#div_feedback p:focus,#Questioninfo:focus,#summaryheading:focus,.pageheading:focus,p:focus{ /*for accessibility*/
+            outline: none
+            }
 #appmenu *:focus, #appmenu *:active {
     outline: #ff8c00 solid 2px;
 }

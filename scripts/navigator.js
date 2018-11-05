@@ -154,7 +154,7 @@ var _Navigator = (function () {
             if (_currentPageObject.isStartPage) {
                 $(".main-content").load(pageUrl, function () {
                     OnPageLoad();
-                    $("#titleheader").focus();
+                    $("#header1").focus();
                 });
             } else {
                 cnt1 = 0;

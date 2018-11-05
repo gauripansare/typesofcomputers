@@ -3,7 +3,11 @@
         return this.removeClass('disabled').attr("aria-disabled", "false").removeAttr("disabled");
     },
     k_disable: function () {
-        return this.addClass('disabled').attr("aria-disabled", "true").attr("disabled", "disabled");
+        this.addClass('disabled').attr("aria-disabled", "true").attr("disabled", "disabled");
+        if (isIE11version) {
+            $(this).removeAttr("disabled")
+        }
+        return;
     },
     k_IsDisabled: function () {
         if (this.hasClass('disabled')) { return true; } else { return false; }
@@ -29,7 +33,7 @@ var _ModuleCommon = (function () {
             }
 
         },
-GetReviewData: function () {
+        GetReviewData: function () {
             return reviewData;
         },
         SetReviewData: function (rData) {
@@ -299,7 +303,7 @@ GetReviewData: function () {
             if (isFirefox || isIE11version) {
                 this.SetCustomarialabelforRadio();
             }
-           
+
         },
         Applycss: function () {
 
@@ -384,10 +388,10 @@ GetReviewData: function () {
             $("#div_feedback").show();
             $("input").k_disable();
             $("#div_feedback").css("display", "inline-block");
-            
+
             $("#div_feedback .div_fdkcontent").load(fdbkUrl, function () {
-                $('html,body').animate({ scrollTop: document.body.scrollHeight }, isIphone, function () { 
-                    $("#div_feedback .div_fdkcontent p").first().attr("tabindex","-1");
+                $('html,body').animate({ scrollTop: document.body.scrollHeight }, isIphone, function () {
+                    $("#div_feedback .div_fdkcontent p").first().attr("tabindex", "-1");
                     $("#div_feedback .div_fdkcontent p").first().focus();
                 });
             });
@@ -418,9 +422,9 @@ GetReviewData: function () {
             $(".checkmark").show();
             $(".ffreading").remove();
             $('html,body').animate({ scrollTop: document.body.scrollHeigh }, 500, function () {
-                $("#radio-elements legend").attr("tabindex","-1");
+                $("#radio-elements legend").attr("tabindex", "-1");
                 $("#radio-elements legend").focus();
-             });
+            });
         },
         AddReviewData: function (isCorrect, fdkurl) {
             var pageData = this.GetPageDetailData();
@@ -532,7 +536,7 @@ GetReviewData: function () {
     }
 })();
 $(document).ready(function () {
-    
+
     _Navigator.Initialize();
     //$("h1:first").focus();
 
