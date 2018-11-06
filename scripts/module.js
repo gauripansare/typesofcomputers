@@ -391,7 +391,7 @@ var _ModuleCommon = (function () {
 
             $("#div_feedback .div_fdkcontent").load(fdbkUrl, function () {
                 $("#div_feedback p:first").attr("tabindex", "-1")
-                if (iOS) {
+                if (isIOS) {
                     $("#div_feedback p:first").attr("role", "text")
                 }
                 $('html,body').animate({ scrollTop: document.body.scrollHeight }, isIphone, function () {
@@ -426,7 +426,7 @@ var _ModuleCommon = (function () {
             $(".ffreading").remove();
 
             $("#radio-elements legend").attr("tabindex", "-1")
-                if (iOS) {
+                if (isIOS) {
                     $("#radio-elements legend").attr("role", "text")
                 }
             $('html,body').animate({ scrollTop: document.body.scrollHeigh }, 500, function () {
