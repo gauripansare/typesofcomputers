@@ -390,9 +390,12 @@ var _ModuleCommon = (function () {
             $("#div_feedback").css("display", "inline-block");
 
             $("#div_feedback .div_fdkcontent").load(fdbkUrl, function () {
+                $("#div_feedback p:first").attr("tabindex", "-1")
+                if (iOS) {
+                    $("#div_feedback p:first").attr("role", "text")
+                }
                 $('html,body').animate({ scrollTop: document.body.scrollHeight }, isIphone, function () {
-                    $("#div_feedback .div_fdkcontent p").first().attr("tabindex", "-1");
-                    $("#div_feedback .div_fdkcontent p").first().focus();
+                    $("#div_feedback p:first").first().focus();
                 });
             });
 
@@ -421,8 +424,12 @@ var _ModuleCommon = (function () {
             $("#div_feedback").hide();
             $(".checkmark").show();
             $(".ffreading").remove();
+
+            $("#radio-elements legend").attr("tabindex", "-1")
+                if (iOS) {
+                    $("#radio-elements legend").attr("role", "text")
+                }
             $('html,body').animate({ scrollTop: document.body.scrollHeigh }, 500, function () {
-                $("#radio-elements legend").attr("tabindex", "-1");
                 $("#radio-elements legend").focus();
             });
         },
