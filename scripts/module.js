@@ -394,9 +394,17 @@ var _ModuleCommon = (function () {
                 if (isIOS) {
                     $("#div_feedback p:first").attr("role", "text")
                 }
-                $('html,body').animate({ scrollTop: document.body.scrollHeight }, isIphone, function () {
-                    $("#div_feedback p:first").first().focus();
-                });
+                if (isIE11version) {
+                    $("#div_feedback .div_fdkcontent p:first").focus();
+                    $('html,body').animate({ scrollTop: document.body.scrollHeight }, animTime, function () {
+                    });
+                }
+                else {
+                    $('html,body').animate({ scrollTop: document.body.scrollHeight }, animTime, function () {
+                        $("#div_feedback .div_fdkcontent p:first").focus();
+
+                    });
+                }
             });
 
         },
