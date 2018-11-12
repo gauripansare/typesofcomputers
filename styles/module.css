@@ -808,7 +808,16 @@
     width: 100px;
     height: 67px;
 }
-
+.accessibility{
+    font-size: 0px;
+    opacity: 0;
+}
+.questioninnerwrapper legend{
+    width: 100%;
+}
+.summaryquestion legend{
+    width: 100%;
+}
    @-moz-document url-prefix() {
     #radio-elements input[type="radio"]:checked + span:before {
         
@@ -823,4 +832,13 @@
         #radio-elements input[type="radio"]:checked + label span{
             padding-left: 7px;
         }    
+        #radio-elements input[type="radio"]:checked + label span::before
+        {
+            right: 107px; 
+        }  
   }
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .iscorrect{
+        margin-top: 5px;
+    }
+}

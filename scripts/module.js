@@ -421,6 +421,7 @@ var _ModuleCommon = (function () {
             $("input[type='radio']").removeClass("incorrect");
             $('input[type="radio"]').removeAttr("aria-hidden");
             $('input[type="radio"]').next().removeAttr("aria-hidden");
+            $("#div_feedback .div_fdkcontent").html("");
             $("#div_feedback").hide();
             $(".checkmark").show();
             $(".ffreading").remove();
