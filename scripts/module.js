@@ -424,6 +424,8 @@ var _ModuleCommon = (function () {
                 $('input[type="radio"]:checked').next("label").find("i").remove();
                 $("input[type='radio']").k_enable();
                 $("input[type='radio']").removeAttr("checked");
+                $('input[type="radio"]').removeAttr("aria-label");
+                $('input[type="radio"]').next("label").removeAttr("aria-label");
             }
             $('input[type="radio"].incorrect').removeAttr("aria-label");
             $("input[type='radio']").removeClass("incorrect");
