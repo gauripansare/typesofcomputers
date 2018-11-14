@@ -166,7 +166,7 @@ div, p, span, input {
         height: 35px;
     }
 
-#header-progress {
+#header-progress ,.header-content-dock{
     /* background: #f1f1f1; */
     height: 40px;
     float: left;
@@ -176,7 +176,7 @@ div, p, span, input {
     margin-top:8px;
 }
 
-    #header-progress .progress {
+    #header-progress .progress, .header-content-dock .progress{
         width: 80%;
         display: flex;
         display: -sm-flex;
@@ -185,7 +185,7 @@ div, p, span, input {
         align-items: center;
     }
 
-    #header-progress .background {
+    #header-progress .background , .header-content-dock .background{
         width: 70%;
         height: 6px !important;
         border-radius: 5px;
@@ -357,7 +357,7 @@ div, p, span, input {
     width: 70px;
 }
 
-.progressDiv {
+.progressdiv {
     float: left;
     width: 135px;
     margin-left: -10px;
@@ -383,15 +383,57 @@ div, p, span, input {
     text-align: left;
 }
 
-.hintlink {
+
+.hintlink ,.hintdoc {
     position: absolute;
-    display:none;
+    font-weight: bold;
+    text-decoration: none;
 }
 
-.closehintlink {
+.closehintlink, .closehintdoc{
     background-color: transparent;
     color: #005976;
     float: right;
     margin-bottom: 10px;
+    margin-right: -5px;
 }
 
+.hintimg{
+   
+    display: inline-block;    
+    float: left;
+    
+}
+
+.hintlinkspan{
+    
+    vertical-align: top;
+    color: #047a9c;
+    border-bottom: 1px solid rgb(4, 122, 156);
+    margin-left: -2px;
+}
+.hintinfodiv{
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+    padding:5px 0 10px 0;
+    margin-bottom:25px;
+}
+.header-content-dock{
+    visibility: hidden ;
+    min-height:60px;
+    top:-80px;
+    position: fixed;
+    background: white;
+    opacity: 1;
+    margin-top: 0px;
+    box-shadow: 0 0px 5px 0px rgba(0,0,0,.2);
+    height: auto;
+}
+.hintcontainerdoc{
+    border:unset;
+    margin-bottom: unset;
+}
+
+.closehintdoc{
+    margin-right:10px;
+}

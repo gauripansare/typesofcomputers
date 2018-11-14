@@ -782,6 +782,9 @@
     display: block;
     margin: 5px 0;
 }
+#Summary .inpputtext{
+   margin: 0px;
+}
 .radiotext{
     margin:0;
 }

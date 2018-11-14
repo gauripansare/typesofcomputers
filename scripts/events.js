@@ -1,44 +1,11 @@
-
-
-$(document).on("mouseover", ".qheight", function (event) {
-    $(this).css({
-        "font-weight": "bold"
-    });
-    $(this).children(".question_icon").children("span").css({
-        "background-color": "#003058",
-        "color": "#F9FF00"
-    });
-
-});
-$(document).on("mouseout", ".qheight", function (event) {
-    $(".qheight").css({
-        "background-color": "",
-        "font-weight": "normal"
-    })
-    $(".question_icon").children("span").css({
-        "background-color": "",
-        "color": ""
-    });
-    $(this).css({
-        "background-color": "#f1f1f1",
-        "font-weight": "bold"
-    });
-    $(this).children(".question_icon").children("span").css({
-        "background-color": "#003058",
-        "color": "#F9FF00"
-    });
-
-});
-$(document).on("click", ".qheight", function (event) {
-    $(".qheight").removeClass("optionselected");
-
-    $(this).addClass("optionselected");
-
-});
 var hotspotclicked = false;;
 var hotspot;
+var touchend = false;
+var touchend1 = false;
 $(document).on("click", ".divHotSpot", function (event) {
-   
+    if (_Navigator.IsPresenterMode()) {
+        return;
+    }
     event.preventDefault();
     $(this).k_disable()
     if (hotspotclicked || _Navigator.IsAnswered())
@@ -62,31 +29,84 @@ $(document).on("click", "#linknext", function (event) {
     if ($(this).k_IsDisabled()) return;    
     _Navigator.Next();
 });
-$(document).on("click", ".hintlink", function (event) {
-   
-    if ($(this).hasClass("expanded")) {
-        $(".hintlink").removeClass("expanded")
-        $(".hintlink").attr("aria-expanded", "false")
-        $(".hintcontainer").slideUp(100);
+$(document).on("click", ".hintdoc", function (event) {
+    debugger;
+    if ($(this).hasClass("hintdoc")) {
+        if ($(this).hasClass("expanded")) {
+            $(this).removeClass("expanded")
+            $(".hintcontainerdoc").hide();
 
+            open = "close";
+        }
+        else {
+            $(this).addClass("expanded")
+            $(".hintcontainerdoc").show();
+
+        }
+    }
+    if(touchend1){
+        $(this).mouseout();
+        touchend1 = false;
+    }
+    event.preventDefault();
+    return;
+});
+$(document).on("click", ".hintlink", function (event) {
+    if ($(this).k_IsDisabled()) return;
+   var open = "open;"
+    if ($(this).hasClass("expanded")) {
+        $(this).removeClass("expanded")
+        $(this).attr("aria-expanded", "false")
+        $(".hintcontainer").slideUp(100);
+        $(".pageheading").focus();
+        open = "close";
     }
     else {
+        $(this).addClass("expanded");
+        $(this).attr("aria-expanded", "true");
         $(".hintcontainer").slideDown(100, function () {
-            $(".hintlink").addClass("expanded");
-            $(".hintlink").attr("aria-expanded", "true");
+
+            $(".hintcontainer .hintcontent").find("p:first").attr("tabindex", "-1")
+            if (iOS) {
+                $(".hintcontainer .hintcontent").find("p:first").attr("role", "text")
+            }
+            $(".hintcontainer .hintcontent").find("p:first").focus(); 
         });
     }
+    if (_Navigator.IsRevel()) {
+        LifeCycleEvents.OnInteraction("Hint button click. Hint " + open)
+    }
+     if(touchend){
+        $(this).mouseout();
+        touchend = false;
+    }
+
+});
+
+$(document).on("click", ".closehintdoc", function (event) {
+    if ($(this).k_IsDisabled()) return;
+    $(".hintdoc").removeClass("expanded")
+    $(".hintcontainerdoc").hide();
+   
+    if (_Navigator.IsRevel()) {
+        LifeCycleEvents.OnInteraction("Hint button click. Hint closed")
+    }
+    event.preventDefault();
+    return;
 
 });
 $(document).on("click", ".closehintlink", function (event) {
-
+    if ($(this).k_IsDisabled()) return;
     $(".hintlink").removeClass("expanded")
     $(".hintlink").attr("aria-expanded", "false")
-    $(".hintcontainer").slideUp(100);
-
+    $(".hintcontainer").slideUp(100,function(){$("h2.pageheading").focus();});
+    if (_Navigator.IsRevel()) {
+        LifeCycleEvents.OnInteraction("Hint button click. Hint closed")
+    }
 
 });
 $(document).on("keydown", "input.EmbededElement", function (event) {
+    if ($(this).k_IsDisabled()) return;
     if ($(this).attr("disabled") || $(this).hasClass("disabled")) {
         event.preventDefault();
         return;
@@ -105,10 +125,7 @@ $(window).resize(function () {
     _ModuleCommon.OrientationChange();
 });
 
-$(window).resize(function () {
 
-
-});
 
 $(document).on('click', ".activityimg", function (event) {
     if ($(".divHotSpot").hasClass("disabled"))
@@ -118,6 +135,7 @@ $(document).on('click', ".activityimg", function (event) {
 
 
 $(document).on('click', ".startbtn", function (event) {
+    if ($(this).k_IsDisabled()) return;
     _Navigator.Next();
 });
 $(document).on('click', "#submitbtn", function (event) {
@@ -146,15 +164,57 @@ $(document).on('change', "input[type='radio'].pageradio", function (event) {
 $(document).on('click', ".reviewsubmit", function (event) {
     _Navigator.Next();
 });
-$(document).on('mouseover', ".hintlink", function (event) {
-    $(".hintlink .hintlinkspan").css({"color":"#b22222","border-bottom":"1px solid #b22222"})
-    $(this).find("path").css({"fill":"#b22222"})
+$(document).on('click', ".reviewsubmit", function (event) {
+    if ($(this).k_IsDisabled()) return;
+    _Navigator.Next();
 });
 
-$(document).on('mouseout', ".hintlink", function (event) {
- $(".hintlink .hintlinkspan").css({"color":"#047a9c","border-bottom":"1px solid #047a9c"})
- $(this).find("path").css({"fill":"#047a9c"}) 
+
+$(document).on('touchstart', ".hintlink", function (event) {
+    mouseenter($(this));
+    touchend = false;
 });
+
+$(document).on('touchend ', ".hintlink", function (event) {
+    mouseleave($(this));
+    touchend = true;
+});
+
+$(document).on('touchstart', ".hintdoc", function (event) {
+    mouseenter($(this));
+    touchend1 = false;
+});
+
+$(document).on('touchend ', ".hintdoc", function (event) {
+    mouseleave($(this));
+    touchend1 = true;
+});
+
+
+$(document).on('mouseenter', ".hintlink", function (event) {
+    mouseenter($(this));
+});
+
+$(document).on('mouseleave', ".hintlink", function (event) {
+    mouseleave($(this));
+});
+
+$(document).on('mouseenter', ".hintdoc", function (event) {
+    mouseenter($(this));
+});
+
+$(document).on('mouseleave', ".hintdoc", function (event) {
+    mouseleave($(this));
+});
+function mouseenter(_ths) {
+    _ths.find(".hintlinkspan").css({ "color": "#b22222", "border-bottom": "1px solid #b22222" })
+    _ths.find("path").css({ "fill": "#b22222" })
+}
+function mouseleave(_ths) {
+    _ths.find(".hintlinkspan").css({ "color": "#047a9c", "border-bottom": "1px solid #047a9c" })
+    _ths.find("path").css({ "fill": "#047a9c" })
+}
+
 
 $(document).on("change", ".assessmentradio", function (event) {
     $(".assessmentSubmit").k_enable();  
@@ -171,6 +231,10 @@ $(document).on("click", ".assessmentSubmit", function (event) {
     _Navigator.Next();
 });
 
+$(document).on('click', ".inputcircle", function (event) {
+    if ($(this).k_IsDisabled()) return;
+    $(this).next(".inpputtext").trigger("click");
+});
 
 window.onload = function () {
     _ScormUtility.Init();
@@ -180,4 +244,23 @@ window.onunload = function () {
     _ScormUtility.End();
 }
 
+window.addEventListener("scroll", function () {
+    $(".hintdoc").parent().hide();
+    var currPage = _Navigator.GetCurrentPage();
+    if (currPage.pageId == "p1" )
+        return;
+    var target = $(".header-content-dock");
 
+    if (window.pageYOffset > $("#header-content").height() - 15) {
+        var width = $("#wrapper").width();
+        target.css({ "visibility": "visible", "top": "0px", "width": width + "px" })
+    }
+    else if (window.pageYOffset < $("#header-content").height() - 15) {
+        target.css({ "visibility": "hidden", "top": "-80px"})
+        $(".hintcontainerdoc").hide();
+        $(".hintdoc").removeClass("expanded")
+
+    }
+    
+
+}, false);
