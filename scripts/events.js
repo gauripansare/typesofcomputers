@@ -30,7 +30,6 @@ $(document).on("click", "#linknext", function (event) {
     _Navigator.Next();
 });
 $(document).on("click", ".hintdoc", function (event) {
-    debugger;
     if ($(this).hasClass("hintdoc")) {
         if ($(this).hasClass("expanded")) {
             $(this).removeClass("expanded")
@@ -246,11 +245,16 @@ window.onunload = function () {
 
 window.addEventListener("scroll", function () {
     $(".hintdoc").parent().hide();
-    var currPage = _Navigator.GetCurrentPage();
-    if (currPage.pageId == "p1" )
-        return;
     var target = $(".header-content-dock");
 
+    var currPage = _Navigator.GetCurrentPage();
+    if (currPage.pageId == "p1" ){
+        target.css({ "visibility": "hidden", "top": "-80px"})
+        $(".hintcontainerdoc").hide();
+        $(".hintdoc").removeClass("expanded")
+        return;
+    }
+    
     if (window.pageYOffset > $("#header-content").height() - 15) {
         var width = $("#wrapper").width();
         target.css({ "visibility": "visible", "top": "0px", "width": width + "px" })

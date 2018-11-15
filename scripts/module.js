@@ -172,7 +172,9 @@ var _ModuleCommon = (function () {
                 $("#" + radio).next("label").attr("aria-hidden", "true");
             }
             else {
-                $("input[type='radio'].correct").attr("aria-label", "Correct option");
+                var rarialabel_c = $("input[type='radio'].correct").next("label").text();
+                $("input[type='radio'].correct").next("label").attr("aria-hidden", "true");
+                $("input[type='radio'].correct").attr("aria-label", "Correct option"+rarialabel_c);
                 rarialabel = "Incorrect option selected " + $("#" + radio).next("label").text();
                 $("#" + radio).next("label").attr("aria-hidden", "true");
             }
@@ -436,8 +438,8 @@ var _ModuleCommon = (function () {
             }
             $('input[type="radio"].incorrect').removeAttr("aria-label");
             $("input[type='radio']").removeClass("incorrect");
-            $('input[type="radio"]').removeAttr("aria-hidden");
-            $('input[type="radio"]').next().removeAttr("aria-hidden");
+            //$('input[type="radio"]').removeAttr("aria-hidden");
+            //$('input[type="radio"]').next().removeAttr("aria-hidden");
             $("#div_feedback .div_fdkcontent").html("");
             $("#div_feedback").hide();
             $(".checkmark").show();
