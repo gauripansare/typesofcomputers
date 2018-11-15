@@ -302,6 +302,9 @@ var _ModuleCommon = (function () {
                 $("input[type='checkbox']").next("label").find(".checkmark").removeClass("checkmark");
             }
             this.SetAccessibility();
+            if(pageDetailData.pageId != "p8"){
+            _Navigator.SetPageStatus(true);
+            }
             if (isFirefox || isIE11version) {
                 this.SetCustomarialabelforRadio();
             }
