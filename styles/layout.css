@@ -430,8 +430,8 @@ div, p, span, input {
     height: auto;
 }
 .hintcontainerdoc{
-    border:unset;
-    margin-bottom: unset;
+    border:none;
+    margin-bottom: none;
 }
 
 .closehintdoc{
