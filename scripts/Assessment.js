@@ -66,7 +66,6 @@ var _Assessment = (function () {
 			return array;
 		},
 		ShowQuestion: function () {
-
 			//addCSS("styles/questionPlaceholder.css");
 			$(".question-band").empty();
 			$(".intro-content-question").hide();
@@ -190,6 +189,7 @@ var _Assessment = (function () {
 		},
 		ShowSummary: function () {
 			var score = 0;
+			$(".question-container .intro-content-question").hide();
 			for (var b = 0; b < gRecordData.Questions.length; b++) {
 				questionObj = $("#Question").clone();
 				currQustion = gRecordData.Questions[b]
@@ -256,6 +256,8 @@ var _Assessment = (function () {
 				questionObj.show();
 				questionObj.find(".question-band").addClass("summaryoptions");
 				$("#Summary").append(questionObj);
+				
+				$(".question-container .intro-content-question").hide();
 
 				questionObj.find(".question-band label").css("position", "relative");
 				
