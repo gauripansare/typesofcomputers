@@ -405,7 +405,7 @@ var _ModuleCommon = (function () {
             $("#div_feedback").css("display", "inline-block");
 
             $("#div_feedback .div_fdkcontent").load(fdbkUrl, function () {
-                $("#div_feedback p:first").attr("tabindex", "-1")
+                $("#div_feedback p:first").attr("tabindex", "0")
                 if (isIOS) {
                     $("#div_feedback p:first").attr("role", "text")
                 }
@@ -436,6 +436,17 @@ var _ModuleCommon = (function () {
             $("input[type='checkbox']:not(.correct)").next("label").find("i").remove();
             $('input[type="checkbox"]').removeAttr("aria-hidden");
 
+            
+            if (isFirefox || isIE11version) {
+                $('input[type="checkbox"].correct').attr("aria-hidden","true");
+                $('input[type="checkbox"]:not(.correct)').next("label").removeAttr("aria-hidden");
+                $('input[type="checkbox"]:not(.correct)').next("label").next(".ffreading").remove();
+                //$('input[type="checkbox"]:not(.correct)').next(".ffreading").remove();
+                if (!$('input[type="radio"]:checked').hasClass("correct")){
+                    $('input[type="radio"]').next("label").next(".ffreading").remove();
+                    $('input[type="radio"]:not(.correct)').next("label").removeAttr("aria-hidden");
+                }
+            }
             if (!$('input[type="radio"]:checked').hasClass("correct")) {
                 $('input[type="radio"]:checked').next("label").find("span").removeClass("without-before")
                 $('input[type="radio"]:checked').next("label").find("i").remove();
@@ -452,7 +463,7 @@ var _ModuleCommon = (function () {
             $("#div_feedback .div_fdkcontent").html("");
             $("#div_feedback").hide();
             $(".checkmark").show();
-            $(".ffreading").remove();
+            
 
             $("#radio-elements legend").attr("tabindex", "-1")
             if (isIOS) {

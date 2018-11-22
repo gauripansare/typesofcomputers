@@ -169,14 +169,14 @@ var _Navigator = (function () {
                             $("#titleheader").focus();
                         }
                         else if ((isIphone || isAndroid) && _NData[_currentPageId].isLoaded != undefined && _NData[_currentPageId].isLoaded == true) {//iphone android on previous focus is set to header
-                            $("h2.pageheading").attr("tabindex", "0");
+                            $("h2").attr("tabindex", "0");
                             $("h2").focus();
                         }
                         else {
                             //$(".header-informarion .hintlink").focus();
                             //$("h2").focus();
                             if (isChrome && !isAndroid) {
-                                $("h2.pageheading").attr("tabindex", "0");
+                                $("h2").attr("tabindex", "0");
                                 $("h2").focus();
                             }
                             else {
@@ -189,7 +189,7 @@ var _Navigator = (function () {
                         if (_currentPageId == "p8") // need to change to assessment id
                         {
                             _Assessment.ShowQuestion();
-                            $("h2.pageheading").attr("tabindex", "0");
+                            $("h2").attr("tabindex", "0");
                             $("h2").focus();
                         }
                         _NData[_currentPageId].isLoaded = true;
@@ -261,7 +261,7 @@ var _Navigator = (function () {
                     $("#Summary").load("pagedata/Summary.htm", function () {
                         _Assessment.ShowSummary();
                         if (isChrome && !isAndroid) {
-                            $("h2.pageheading").attr("tabindex", "0");
+                            $("h2").attr("tabindex", "0");
                             $("h2").focus();
                         }
                         else {
