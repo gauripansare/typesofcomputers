@@ -443,6 +443,7 @@ var _ModuleCommon = (function () {
                 $('input[type="checkbox"]:not(.correct)').next("label").next(".ffreading").remove();
                 //$('input[type="checkbox"]:not(.correct)').next(".ffreading").remove();
                 if (!$('input[type="radio"]:checked').hasClass("correct")){
+                    $('input[type="radio"]').removeAttr("aria-hidden");
                     $('input[type="radio"]').next("label").next(".ffreading").remove();
                     $('input[type="radio"]:not(.correct)').next("label").removeAttr("aria-hidden");
                 }
