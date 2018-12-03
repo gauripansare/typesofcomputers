@@ -2,6 +2,7 @@
 //It will also handle the question navigation if the page is having multiple questions.
 var _Navigator = (function () {
     var packageType = "";//presenter/scorm/revel
+    var isReviewMode = false;
     var _currentPageId = "";
     var _currentPageObject = {};
     var progressLevels = [11];
@@ -10,6 +11,7 @@ var _Navigator = (function () {
     //var presentermode = false;
     var submitCounter = 0;
     var bookmarkpageid = "";
+    var retrycnt = 1;
     var quizpageid = "p8";
     var _NData = {
         "p1": {
@@ -99,6 +101,10 @@ var _Navigator = (function () {
         if (_Navigator.IsPresenterMode()) {
             _ModuleCommon.AppendFooter();
         }
+        if (_Navigator.IsReviewMode()) {
+            $("#linknext").k_enable();
+            $(".start-btn").k_disable();
+        }
         submitCounter = 0;
         if ((/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent))) {
             $('#footer-navigation').css('display', 'table');
@@ -115,6 +121,11 @@ var _Navigator = (function () {
             this.LoadPage("p1");
             if (this.IsPresenterMode()) {
                 _ModuleCommon.AppendFooter();
+            }
+            
+            if(this.IsReviewMode()){
+                _ModuleCommon.AppendScormReviewFooter();
+                _Assessment.SetCurrentQuestionIndex(0);
             }
         },
         LoadPage: function (pageId, jsonObj) {
@@ -137,6 +148,11 @@ var _Navigator = (function () {
                 $("#linknext").k_enable();
                 $("footer").hide();
                 $("#header-progress").hide();
+                if(this.IsReviewMode()){
+                    _ModuleCommon.AppendScormReviewFooter();
+                    _Assessment.SetCurrentQuestionIndex(0)
+                }
+
             }
             if (_currentPageObject.hasActivity != undefined && _currentPageObject.hasActivity && !this.IsAnswered()) {
                 $("#linknext").k_disable();
@@ -341,6 +357,12 @@ var _Navigator = (function () {
                 this.UpdateScore();
             }
         },
+        IsReviewMode: function(){
+            return isReviewMode;
+        },
+        SetIsReviewMode: function(isReviewModeStatus){
+            isReviewMode = isReviewModeStatus;
+        },
         SetPageStatus: function (isAnswered) {
             if (isAnswered) {
                 _NData[_currentPageObject.pageId].isAnswered = true;
@@ -386,8 +408,10 @@ var _Navigator = (function () {
                 return;
             var bookmarkobj = {}
             bookmarkobj.BMPageId = bookmarkpageid;
+            bookmarkobj.BMretrycnt = retrycnt;
+            bookmarkobj.BMg_RuntimeData = _ModuleCommon.Getg_RuntimeData();
             bookmarkobj.VisistedPages = this.GetNavigatorBMData();
-            //bookmarkobj.ProgressLevels = progressLevels;
+            bookmarkobj.ProgressLevels = progressLevels;
             bookmarkobj.ReviewData = _ModuleCommon.GetReviewData();
             bookmarkobj.AssessmentData = _Assessment.Getbookmarkdata();
             if (this.IsRevel()) {
@@ -440,6 +464,8 @@ var _Navigator = (function () {
             if (bookmarkdata != undefined && bookmarkdata != "") {
                 bookmarkdata = JSON.parse(bookmarkdata);
                 bookmarkpageid = bookmarkdata.BMPageId;
+                retrycnt = bookmarkdata.BMretrycnt;
+                _ModuleCommon.Setg_RuntimeData(bookmarkdata.BMg_RuntimeData);
                 this.SetNavigatorBMData(bookmarkdata.VisistedPages)
                 //progressLevels = bookmarkdata.ProgressLevels;
                 _ModuleCommon.SetReviewData(bookmarkdata.ReviewData)
@@ -449,12 +475,21 @@ var _Navigator = (function () {
         GetBookMarkPage: function () {
             return bookmarkpageid;
         },
+        GetBookMarkRetrycnt: function(){
+            return retrycnt;
+        },
+        SetBookMarkRetrycnt: function(){
+            retrycnt = retrycnt + 1;
+        },
         Initialize: function () {
 
             if (packageType == "scorm") {
                 _ScormUtility.Init();
                 _Navigator.SetBookmarkData();
                 //bookmarkpageid = _ScormUtility.GetBookMark();
+                if(_ScormUtility.IsScormReviewMode()){
+                    _Navigator.SetIsReviewMode(true);
+                }
                 this.GotoBookmarkPage();
             }
             else if (packageType == "revel") {

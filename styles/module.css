@@ -799,7 +799,7 @@
 #radio-elements input[type="radio"]:checked + label i + span:before {
     background: none;
 }
-.presentationModeFooter {
+.presentationModeFooter, .ScormReviewFooter {
     display: inline-block;
     background-color: #1a76cb;
     height: 29px;
