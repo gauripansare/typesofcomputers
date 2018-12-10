@@ -281,7 +281,7 @@ var _ModuleCommon = (function () {
                 $("input[type='radio']").addClass("pageradio");
                 $("#submitbtn").k_disable();
             }
-            if (_Navigator.IsAnswered() && !_Navigator.GetCurrentPage().isStartPage) {
+            if (_Navigator.IsAnswered() && !_Navigator.GetCurrentPage().isStartPage && !_Navigator.IsPresenterMode()) {
                 this.DisplayUserReviewMode();
             }
             if (_Navigator.IsPresenterMode() == true) {
