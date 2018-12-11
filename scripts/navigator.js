@@ -251,11 +251,14 @@ var _Navigator = (function () {
                 custFunction();
             }
             if (_currentPageObject.pageId == "p8") {
-
+                if(this.IsPresenterMode()){
+                    gRecordData.Questions[currentQuestionIndex].IsAnswered = true;
+                }
                 if (typeof (currentQuestionIndex) != 'undefined' && typeof (gRecordData.Questions) != 'undefined' && (currentQuestionIndex + 1) < gRecordData.Questions.length) {
                     currentQuestionIndex = currentQuestionIndex + 1
                     $("#Questioninfo").show();
                     _Assessment.ShowQuestion()
+                    
 
                     //this.UpdateProgressBar();
                     if (gRecordData.Status != "Completed" && !this.IsPresenterMode()) {

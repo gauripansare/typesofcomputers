@@ -144,7 +144,7 @@ if (gRecordData.Status == "Completed") {
 			iscorrectimg.attr({ "alt": "", "aria-hidden": "true" });
 			iscorrectimg.closest("span").show();
 			iscorrectimg.attr("aria-label", "Correct option selected");
-			gRecordData.Questions[currentQuestionIndex].IsAnswered = true;
+			//gRecordData.Questions[currentQuestionIndex].IsAnswered = true;
 			$("#linknext").k_enable();
 			$("#linkprevious").k_enable();
 		},
