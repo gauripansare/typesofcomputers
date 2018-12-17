@@ -173,7 +173,8 @@ div, p, span, input {
     width: 100%;
     height: auto;
     z-index: 10;
-    margin-top:8px;
+    margin-top: 8px;
+    position: relative;
 }
 
     #header-progress .progress, .header-content-dock .progress{
@@ -436,4 +437,7 @@ div, p, span, input {
 
 .closehintdoc{
     margin-right:10px;
+}
+.wrapper-img {
+    position: relative;
 }
