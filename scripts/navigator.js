@@ -1,7 +1,7 @@
 ﻿//This api will contain navigation logic and page load.
 //It will also handle the question navigation if the page is having multiple questions.
 var _Navigator = (function () {
-    var packageType = "";//presenter/scorm/revel
+    var packageType = "scorm";//presenter/scorm/revel
     var isReviewMode = false;
     var _currentPageId = "";
     var _currentPageObject = {};
@@ -13,6 +13,7 @@ var _Navigator = (function () {
     var bookmarkpageid = "";
     var retrycnt = 1;
     var quizpageid = "p8";
+    var Summarybookmark = false;
     var _NData = {
         "p1": {
             pageId: "p1",
@@ -220,15 +221,43 @@ var _Navigator = (function () {
 
                         if (_currentPageId == "p8") // need to change to assessment id
                         {
-                            _Assessment.ShowQuestion();
-                            $("h2").attr("tabindex", "0");
-                            $("h2").focus();
+if (Summarybookmark) {
+
+                                $(".intro-content-question").hide();
+                                $(".questionwrapper").hide();
+                                $("#Summary").show();
+                                $("#Questioninfo").hide();
+                                $("#Summary").load("pagedata/Summary.htm", function () {
+                                    _Assessment.ShowSummary();
+                                    if (isChrome && !isAndroid) {
+                                        $("h2.pageheading").attr("tabindex", "0");
+                                        $("h2").focus();
+                                    }
+                                    else {
+                                        $("#progressdiv").focus();
+                                    }
+                                    $("#linkprevious").k_enable();
+
+                                })
+                                $("#climate-deal").css("margin-left", "23%");
+                                $("#linknext").k_disable();
+                            }
+                            else {
+                                _Assessment.ShowQuestion();
+                                $("h2.pageheading").attr("tabindex", "0");
+                                $("h2").focus();
+                            }
+                        
+
                         }
                         _NData[_currentPageId].isLoaded = true;
                         _Navigator.GetBookmarkData();
                     });
                 })
             }
+        },
+        GetSummarybookmark: function () {
+            return Summarybookmark;
         },
         LoadDefaultQuestion: function () {
             if (_currentPageObject.questions.length > 0) {
@@ -246,6 +275,7 @@ var _Navigator = (function () {
             }
         },
         Prev: function () {
+            Summarybookmark = false;
             if (_currentPageObject.pageId == "p8" && typeof (currentQuestionIndex) != 'undefined' && currentQuestionIndex > 0) {
                 $("#ReviewIns").hide();
                 $(".intro-content-question").show();
@@ -261,6 +291,7 @@ var _Navigator = (function () {
 
         },
         Next: function () {
+            Summarybookmark = false;
             $("#linkprevious").k_enable();
             if (_currentPageObject.customNext != undefined && !_currentPageObject.customNext.isComplete) {
                 var custFunction = new Function(_currentPageObject.customNext.jsFunction);
@@ -294,6 +325,8 @@ var _Navigator = (function () {
                     $("#Summary").show();
                     $("#Questioninfo").hide();
                     $("#Summary").load("pagedata/Summary.htm", function () {
+                        Summarybookmark = true;
+                        _Navigator.GetBookmarkData();
                         _Assessment.ShowSummary();
                         if (isChrome && !isAndroid) {
                             $("h2").attr("tabindex", "0");
@@ -423,7 +456,7 @@ var _Navigator = (function () {
             }
         },
         GetBookmarkData: function () {
-            if (!this.IsScorm() && !this.IsRevel())
+            if (!this.IsScorm() && !this.IsRevel() && this.IsReviewMode())
                 return;
             var bookmarkobj = {}
             bookmarkobj.BMPageId = bookmarkpageid;
@@ -433,6 +466,7 @@ var _Navigator = (function () {
             //bookmarkobj.ProgressLevels = progressLevels;
             bookmarkobj.ReviewData = _ModuleCommon.GetReviewData();
             bookmarkobj.AssessmentData = _Assessment.Getbookmarkdata();
+            bookmarkobj.Summarybookmark = _Navigator.GetSummarybookmark();
             if (this.IsRevel()) {
                 if (k_Revel.get_LaunchData().mode == LaunchModes.do) {
                     var suspend_data = JSON.stringify(bookmarkobj);
@@ -461,6 +495,9 @@ var _Navigator = (function () {
             }
         },
         SetBookMarkPage: function () {
+            if(this.IsReviewMode()){
+                return;
+            }
             if (!this.IsScorm() && !this.IsRevel())
                 return;
             if (this.IsScorm()) {
@@ -484,6 +521,7 @@ var _Navigator = (function () {
                 bookmarkdata = JSON.parse(bookmarkdata);
                 bookmarkpageid = bookmarkdata.BMPageId;
                 retrycnt = bookmarkdata.BMretrycnt;
+                Summarybookmark = bookmarkdata.Summarybookmark
                 //_ModuleCommon.Setg_RuntimeData(bookmarkdata.BMg_RuntimeData);
                 this.SetNavigatorBMData(bookmarkdata.VisistedPages)
                 //progressLevels = bookmarkdata.ProgressLevels;
@@ -547,9 +585,13 @@ var _Navigator = (function () {
             }
         },
         GotoBookmarkPage: function () {
-
-            if (bookmarkpageid != undefined && bookmarkpageid != "") {
-                _Navigator.LoadPage(bookmarkpageid)
+            if (bookmarkpageid != undefined && bookmarkpageid != "" && !this.IsReviewMode()) {
+                if (Summarybookmark) {
+                    _Navigator.LoadPage(quizpageid);
+                }
+                else {
+                    _Navigator.LoadPage(bookmarkpageid)
+                }
             }
             else {
                 _Navigator.Start();

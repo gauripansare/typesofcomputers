@@ -303,7 +303,7 @@ if (gRecordData.Status == "Completed") {
 			$("#progressdiv").focus();
 		},
 		SetScore: function (perscore) {
-			if (_Navigator.IsScorm()) {
+			if (_Navigator.IsScorm() && !_Navigator.IsReviewMode()) {
 				_ScormUtility.SetScore(perscore);
 				_ScormUtility.Scormcomplete()
 			}
