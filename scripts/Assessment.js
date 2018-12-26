@@ -123,8 +123,18 @@ if (gRecordData.Status == "Completed") {
 				this.ShowQuestionPresenterMode();
 				$("#linknext").k_enable()
 			}
-			if (gRecordData.Status == "Completed") {
+			if (gRecordData.Status == "Completed" || gRecordData.Questions[currentQuestionIndex].IsAnswered) {
 				this.ShowUserReviewMode();
+			}
+			/*
+			if (gRecordData.Questions[currentQuestionIndex].IsAnswered) {
+				this.ShowUserReviewMode();
+			}*/
+			if (_Navigator.IsReviewMode()) {
+				$("input[type='radio']").prop("readonly", "readonly");
+				$("input[type='radio']").k_disable();
+				$("#linkprevious").k_enable()
+				$("#linknext").k_enable()
 			}
 			_Navigator.UpdateProgressBar();
 			$(".assessmentSubmit").k_disable();
@@ -216,6 +226,7 @@ if (gRecordData.Status == "Completed") {
 					optionObj.find("input").attr("name", radioname)
 					optionObj.show();
 					//questionObj.find(".question-band").append(optionObj)
+					if (gRecordData.Questions[b].IsAnswered) { //ATUL 
 					if (isIE11version || isIEEdge || isSafari) {
 						optionObj.find("input").attr("aria-label", optionObj.find(".inpputtext").text());
 						optionObj.find(".inpputtext").attr("aria-hidden", "true")
@@ -252,6 +263,7 @@ if (gRecordData.Status == "Completed") {
 
 					}
 					iscorrectimg.attr({ "alt": "", "aria-hidden": "true" });
+					}
 					questionObj.find(".question-band").append(optionObj)
 
 				}
@@ -288,7 +300,7 @@ if (gRecordData.Status == "Completed") {
 			 }
 			 var perscore = gRecordData.Score / parseInt(gRecordData.AssessmentScore) * 100;	
 				$("#ScoreSummary").text("Score: " + perscore + "%");
-			if (gRecordData.Status == "Started") {
+			if (gRecordData.Status == "Started" && !_Navigator.IsReviewMode()) {
 				gRecordData.Status = "Completed";
 				gRecordData.Score = score;
 				

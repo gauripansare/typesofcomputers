@@ -103,6 +103,9 @@ var _Navigator = (function () {
             _ModuleCommon.AppendFooter();
         }
         if (_Navigator.IsReviewMode()) {
+            currentQuestionIndex = 0;
+            $("input[type='radio']").k_disable();
+            $("input[type='checkbox']").k_disable()
             $("#linknext").k_enable();
             $(".start-btn").k_disable();
         }
@@ -305,10 +308,7 @@ if (Summarybookmark) {
                     currentQuestionIndex = currentQuestionIndex + 1
                     $("#Questioninfo").show();
                     _Assessment.ShowQuestion()
-                    
-
-                    //this.UpdateProgressBar();
-                    if (gRecordData.Status != "Completed" && !this.IsPresenterMode()) {
+                    if (gRecordData.Status != "Completed" && !this.IsPresenterMode() && !this.IsReviewMode()) {
                         $("#linknext").k_disable();
                         $("#linkprevious").k_disable();
                     }
