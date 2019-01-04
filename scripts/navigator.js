@@ -1,7 +1,7 @@
 ﻿//This api will contain navigation logic and page load.
 //It will also handle the question navigation if the page is having multiple questions.
 var _Navigator = (function () {
-    var packageType = "scorm";//presenter/scorm/revel
+    var packageType = "presenter";//presenter/scorm/revel
     var isReviewMode = false;
     var _currentPageId = "";
     var _currentPageObject = {};
@@ -301,9 +301,9 @@ if (Summarybookmark) {
                 custFunction();
             }
             if (_currentPageObject.pageId == "p8") {
-                if(this.IsPresenterMode()){
+                /*ATUL if(this.IsPresenterMode()){
                     gRecordData.Questions[currentQuestionIndex].IsAnswered = true;
-                }
+                }*/
                 if (typeof (currentQuestionIndex) != 'undefined' && typeof (gRecordData.Questions) != 'undefined' && (currentQuestionIndex + 1) < gRecordData.Questions.length) {
                     currentQuestionIndex = currentQuestionIndex + 1
                     $("#Questioninfo").show();

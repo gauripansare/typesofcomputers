@@ -281,11 +281,11 @@ var _ModuleCommon = (function () {
                 $("input[type='radio']").addClass("pageradio");
                 $("#submitbtn").k_disable();
             }
-            if (_Navigator.IsAnswered() && !_Navigator.GetCurrentPage().isStartPage && !_Navigator.IsPresenterMode()) {
+            if (_Navigator.IsAnswered() && !_Navigator.GetCurrentPage().isStartPage) {
                 this.DisplayUserReviewMode();
             }
             if (_Navigator.IsPresenterMode() == true) {
-                $(".startbtn").k_disable();
+                //$(".startbtn").k_disable();
                 $("#linknext").k_enable();
 
                 if (currentPageData.pageId != "p8" && currentPageData.pageId != "p1") {
@@ -299,7 +299,7 @@ var _ModuleCommon = (function () {
 
         },
         LoadPresenterMod: function () {
-            var pageDetailData = this.GetPageDetailData();
+          /*  var pageDetailData = this.GetPageDetailData();
             $("#" + pageDetailData.radio).next("label").find("span").before(' <i class="fa radio-fa-check fa-check" style="font-size:15px;color:#01662C;"></i>');
             $("#" + pageDetailData.radio).addClass("correct").attr('checked', 'checked');
             $("input[type='radio']").k_disable();
@@ -318,7 +318,7 @@ var _ModuleCommon = (function () {
             if (isFirefox || isIE11version) {
                 this.SetCustomarialabelforRadio();
             }
-
+*/
         },
         Applycss: function () {
 

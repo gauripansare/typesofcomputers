@@ -123,7 +123,7 @@ if (gRecordData.Status == "Completed") {
 				this.ShowQuestionPresenterMode();
 				$("#linknext").k_enable()
 			}
-			if (gRecordData.Status == "Completed" || gRecordData.Questions[currentQuestionIndex].IsAnswered) {
+			if (gRecordData.Questions[currentQuestionIndex].IsAnswered) {
 				this.ShowUserReviewMode();
 			}
 			/*
@@ -141,7 +141,7 @@ if (gRecordData.Status == "Completed") {
 			_Navigator.GetBookmarkData();
 		},
 		ShowQuestionPresenterMode: function () {
-			$(".assessmentSubmit").hide();
+			/*$(".assessmentSubmit").hide();
 			var currQuestion = gRecordData.Questions[currentQuestionIndex];
 			var correctoption = currQuestion.Options.filter(function (item) {
 				return item.IsCorrect;
@@ -153,7 +153,7 @@ if (gRecordData.Status == "Completed") {
 			iscorrectimg.attr("src", "assets/images/tick-icon-correct-1.png");
 			iscorrectimg.attr({ "alt": "", "aria-hidden": "true" });
 			iscorrectimg.closest("span").show();
-			iscorrectimg.attr("aria-label", "Correct option selected");
+			iscorrectimg.attr("aria-label", "Correct option selected");*/
 			//gRecordData.Questions[currentQuestionIndex].IsAnswered = true;
 			$("#linknext").k_enable();
 			$("#linkprevious").k_enable();
@@ -364,6 +364,9 @@ if (gRecordData.Status == "Completed") {
 			currentQuestionIndex = assessmentobj.currentQuestionIndex;
 			gRecordData.Status = assessmentobj.status;
 			gRecordData.Score = assessmentobj.score;
+			if (assessmentobj.Qdata.length == gRecordData.Questions.length) {
+				gRecordData.Status = "Completed";
+			}
 			if (assessmentobj.Qdata != undefined && assessmentobj.Qdata.length > 0) {
 				for (var i = 0; i < gRecordData.Questions.length; i++) {
 					for (j = 0; j < assessmentobj.Qdata.length; j++) {
