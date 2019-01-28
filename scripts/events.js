@@ -3,6 +3,7 @@ var hotspot;
 var touchend = false;
 var touchend1 = false;
 $(document).on("click", ".divHotSpot", function (event) {
+    if ($(this).k_IsDisabled()) return;
     event.preventDefault();
     $(this).k_disable()
     if (hotspotclicked || _Navigator.IsAnswered())
@@ -27,6 +28,7 @@ $(document).on("click", "#linknext", function (event) {
     _Navigator.Next();
 });
 $(document).on("click", ".hintdoc", function (event) {
+    if ($(this).k_IsDisabled()) return;
     if ($(this).hasClass("hintdoc")) {
         if ($(this).hasClass("expanded")) {
             $(this).removeClass("expanded")
@@ -135,10 +137,11 @@ $(document).on('click', ".startbtn", function (event) {
     _Navigator.Next();
 });
 $(document).on('click', "#submitbtn", function (event) {
-  
+    if ($(this).k_IsDisabled()) return;
     _ModuleCommon.OnSubmit();
 });
 $(document).on('click', "#continuebtn", function (event) {
+    if ($(this).k_IsDisabled()) return;
     _ModuleCommon.OnContinue();
 });
 
@@ -156,9 +159,6 @@ $(document).on('change', "input[type='checkbox'].pagecheckbox", function (event)
 $(document).on('change', "input[type='radio'].pageradio", function (event) {
     _ModuleCommon.EnableSubmit();
      $('input[type="radio"]:checked').addClass('beforeClass');
-});
-$(document).on('click', ".reviewsubmit", function (event) {
-    _Navigator.Next();
 });
 $(document).on('click', ".reviewsubmit", function (event) {
     if ($(this).k_IsDisabled()) return;
@@ -217,6 +217,7 @@ $(document).on("change", ".assessmentradio", function (event) {
   
 });
 $(document).on("click", ".assessmentSubmit", function (event) {
+    if ($(this).k_IsDisabled()) return;
     gRecordData.Questions[currentQuestionIndex].UserSelectedOptionId = $("input[type='radio']:checked").attr("id") ;
     gRecordData.Questions[currentQuestionIndex].IsAnswered = true;
     var correctoption =   gRecordData.Questions[currentQuestionIndex].Options.filter(function (item) {
