@@ -74,7 +74,8 @@ var _ModuleCommon = (function () {
             }
         },
         DisplayUserReviewMode: function () {
-            $("input").link_k_disable();
+            $('input:not(#submitbtn)').k_disable();
+            $('#submitbtn').link_k_disable();
             this.DisplayCorrectIncorrect();
             this.ShowFeedbackReviewMode();
 
@@ -404,7 +405,8 @@ var _ModuleCommon = (function () {
                 }
             }
             $("#div_feedback").show();
-            $("input").link_k_disable();
+            $('input:not(#submitbtn)').k_disable();
+            $('#submitbtn').link_k_disable();
             $("#div_feedback").css("display", "inline-block");
 
             $("#div_feedback .div_fdkcontent").load(fdbkUrl, function () {
