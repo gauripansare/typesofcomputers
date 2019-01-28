@@ -55,7 +55,7 @@ var _ModuleCommon = (function () {
             var fdkurl = "";
             if (pageData != undefined && reviewData != undefined) {
                 fdkurl = reviewData.fdkurl;
-
+                $("#div_feedback").removeAttr("aria-hidden");
                 $("#div_feedback").show();
                 $("#div_feedback").css("display", "inline-block");
                 $("#div_feedback .div_fdkcontent").load(fdkurl, function () {
@@ -404,6 +404,7 @@ var _ModuleCommon = (function () {
                     _Navigator.GetBookmarkData();
                 }
             }
+            $("#div_feedback").removeAttr("aria-hidden");
             $("#div_feedback").show();
             $('input:not(#submitbtn)').k_disable();
             $('#submitbtn').link_k_disable();
@@ -467,6 +468,7 @@ var _ModuleCommon = (function () {
             //$('input[type="radio"]').removeAttr("aria-hidden");
             
             $("#div_feedback .div_fdkcontent").html("");
+            $("#div_feedback").attr("aria-hidden","true");
             $("#div_feedback").hide();
             $(".checkmark").show();
             
