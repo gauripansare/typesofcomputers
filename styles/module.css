@@ -349,7 +349,7 @@
 
 #radio-elements span {
         position: relative;
-        padding-left: 11px;
+        margin: 11px;
         cursor: pointer;
 }
 
@@ -360,6 +360,7 @@
             border: 2px solid;
             position: absolute;
             right: 96.2%;
+            left: -32px;
             background: #FFF;
             bottom: 70px;
             border-radius: 100%;
@@ -835,6 +836,9 @@
 .summaryquestion legend{
     width: 100%;
 }
+.radiotext{
+    color: #707070;
+}
    @-moz-document url-prefix() {
     #radio-elements input[type="radio"]:checked + span:before {
         
@@ -851,7 +855,7 @@
         }    
         #radio-elements input[type="radio"]:checked + label span::before
         {
-            right: 107px; 
+            right: 118px; 
         }  
   }
   @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {

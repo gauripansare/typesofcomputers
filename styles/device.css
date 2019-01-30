@@ -260,10 +260,17 @@
     }
     /* Smartphones (portrait and landscape) ----------- */
     @media screen and (max-width : 440px) {
+        #radio-elements input[type="radio"]:checked + label span::before
+        {
+            right: 141px; 
+        } 
     }
 
     @media screen and (max-width : 420px) {
-      
+        #radio-elements input[type="radio"]:checked + label span::before
+        {
+            right: 141px; 
+        } 
 
         #radio-elements label + label {
             margin-left: 5%;
@@ -278,4 +285,4 @@
             margin-left: 2%;
         }
     }
-}
+
