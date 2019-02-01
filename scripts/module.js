@@ -301,6 +301,9 @@ var _ModuleCommon = (function () {
                 this.SetRadioboxPosition();
             }
 
+            if ((isFirefox || isIE11version) && currentPageData.pageId != "p1" && currentPageData.pageId != "p10") {
+                this.FFCustomCheckboxAccessbility();
+            }
         },
         LoadPresenterMod: function () {
           /*  var pageDetailData = this.GetPageDetailData();
@@ -482,6 +485,9 @@ var _ModuleCommon = (function () {
             // });
             window.scrollTo(0,document.body.scrollHeight)
             $("#radio-elements legend").focus();
+            if (isFirefox || isIE11version) {
+                this.FFCustomCheckboxAccessbility();
+            }
         },
         AddReviewData: function (isCorrect, fdkurl) {
             var pageData = this.GetPageDetailData();
@@ -570,8 +576,24 @@ AppendScormReviewFooter: function () {
                 $("footer").show();
                 $("#linknext").k_enable();
             }*/
-        
-
+        },        
+        FFCustomCheckboxAccessbility: function () {
+            var radioboxarray = $("input[type='radio']").map(function () {
+                return $(this).attr("id");
+            }).get();
+            for (var i = 0; i < radioboxarray.length; i++) {
+                var aria_label = $("label[for='" + radioboxarray[i] + "'] p:first").html();
+                $("label[for='" + radioboxarray[i] + "'] ").attr("aria-hidden", "true");
+                $("#" + radioboxarray[i]).attr("aria-label", aria_label);
+            }
+            var checkboxarray = $("input[type='checkbox']").map(function () {
+                return $(this).attr("id");
+            }).get();
+            for (var i = 0; i < checkboxarray.length; i++) {
+                var aria_label = $("label[for='" + checkboxarray[i] + "']").text();
+                $("label[for='" + checkboxarray[i] + "'] ").attr("aria-hidden", "true");
+                $("#" + checkboxarray[i]).attr("aria-label", aria_label);
+            }
         },
         IECustomCheckboxAccessbility: function () {
             var chkboxarray = $("input[type='checkbox']").map(function () {
